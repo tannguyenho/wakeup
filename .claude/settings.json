@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "tannguyenho": {
+      "source": {
+        "source": "github",
+        "repo": "tannguyenho/builder-skills"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "builder-skills@tannguyenho": true
+  }
+}
