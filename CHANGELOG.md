@@ -6,6 +6,11 @@ Mỗi dòng gồm: phạm vi (nhóm G0x, `ds`, `server`…), thay đổi, rồi 
 
 ## [Chưa phát hành]
 
+### 16/11/2026
+
+#### Thêm
+- `tools`: bật bộ skill [builder-skills](https://github.com/tannguyenho/builder-skills) (plugin Claude Code) cho cả dự án qua `.claude/settings.json`; ai mở repo trong Claude Code sẽ được mời cài marketplace `tannguyenho` và plugin `builder-skills`. Bỏ qua `.claude/worktrees/` và `.claude/settings.local.json` trong git (PR: chưa tạo).
+
 ### 12/11/2026
 
 #### Sửa

@@ -17,3 +17,7 @@ deploy/.env
 # Hệ điều hành
 .DS_Store
 Thumbs.db
+
+# Claude Code (settings.json được commit)
+.claude/settings.local.json
+.claude/worktrees/
