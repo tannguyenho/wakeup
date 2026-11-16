@@ -6,10 +6,15 @@ Mỗi dòng gồm: phạm vi (nhóm G0x, `ds`, `server`…), thay đổi, rồi 
 
 ## [Chưa phát hành]
 
+### 12/11/2026
+
+#### Sửa
+- G01: flow ghi nhánh lời mời và workspace nhiều thành viên là "Bỏ (1.2)" thay vì "Bỏ (1.1)", theo BR-26 và Q47. 2FA, chỉ đọc, huỷ gói vẫn là 1.1 ([6ce0c09](https://github.com/tannguyenho/personal-app/commit/6ce0c09), đẩy thẳng vào `main`).
+
 ### 11/11/2026
 
 #### Thêm
-- `CHANGELOG.md` và `CLAUDE.md`, kèm quy ước ghi changelog cho mọi thay đổi.
+- `CHANGELOG.md` và `CLAUDE.md`, kèm quy ước ghi changelog cho mọi thay đổi ([0f93c01](https://github.com/tannguyenho/personal-app/commit/0f93c01), đẩy thẳng vào `main`).
 
 ### 10/11/2026
 
