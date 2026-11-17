@@ -50,7 +50,7 @@ Việc cần làm của người dùng nằm rải ở email, công cụ quản 
 
 ## 3.1 Trong phạm vi (bản 1.1 Gmail, Jira, Notion; bản 1.2 Slack, Teams)
 
-- Nền tảng: bản 1.1 trên app Windows (Flutter), web và macOS dùng cùng đặc tả; iOS / Android từ 1.2 (Q45, ADR-0005). OAuth trên app desktop mở trình duyệt hệ thống (luồng cụ thể: tech chốt).
+- Nền tảng: bản 1.1 trên app Windows (Tauri), web và macOS dùng cùng đặc tả; iOS / Android từ 1.2 (Q45, ADR-0005). OAuth trên app desktop mở trình duyệt hệ thống (luồng cụ thể: tech chốt).
 - Trang Cài đặt → Tích hợp: danh sách nhà cung cấp, trạng thái, kết nối OAuth, cấu hình, ngắt kết nối.
 - Panel tích hợp (panel phải, nút + và phím tắt): danh sách item, lọc, tìm, làm mới, xem trước (I), mở nguồn (G).
 - Kéo item vào cột ngày (G04), lịch (G05) hoặc Backlog (G06) → task liên kết; cách bàn phím tương đương.

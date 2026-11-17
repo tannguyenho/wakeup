@@ -2,7 +2,7 @@
 
 Bộ tài liệu yêu cầu cho một ứng dụng lập kế hoạch ngày có chủ đích. Ứng dụng tham chiếu [Sunsama](https://www.sunsama.com): gom task và lịch về một chỗ, dẫn người dùng qua các ritual mỗi ngày và mỗi tuần, timebox task lên lịch, theo dõi thời gian tập trung, và có AI hỗ trợ lập kế hoạch.
 
-> **Trạng thái:** đã chốt mâu thuẫn giữa các nhóm ngày 04/11/2026 ([quyết định](docs/review/quyet-dinh-chot-2026-11-04.md)), chờ PO duyệt từng nhóm. Tech stack và API đã chốt ngày 05/11/2026 ([`docs/tech/01`](docs/tech/01-quyet-dinh-tech-stack-va-api.md)). Các con số còn gắn `[giả định]` cần xác nhận trước khi đưa vào phát triển.
+> **Trạng thái:** đã chốt mâu thuẫn giữa các nhóm ngày 04/11/2026 ([quyết định](docs/review/quyet-dinh-chot-2026-11-04.md)), chờ PO duyệt từng nhóm. Tech stack và API đã chốt ngày 05/11/2026 ([`docs/tech/01`](docs/tech/01-quyet-dinh-tech-stack-va-api.md)); ngày 17/11/2026 đổi client sang Tauri + React và backend sang TypeScript ([ADR-0010](docs/adr/0010-tauri-react-va-backend-typescript.md)). Các con số còn gắn `[giả định]` cần xác nhận trước khi đưa vào phát triển.
 
 ## Sản phẩm làm gì
 
@@ -20,7 +20,7 @@ Bên ngoài vòng ngày là vòng tuần: Weekly planning (đặt objective vào
 
 | Phiên bản | Phạm vi |
 |---|---|
-| **1.0 (MVP, Beta)** | **App Windows (Flutter)**, một người dùng. Tài khoản, task, task lặp lại, board ngày, lịch Google / Outlook và timebox, khung giờ channel, backlog và rollover, timer và Focus, Daily planning, Daily shutdown, **trợ lý AI qua Claude Code CLI + MCP local**. Miễn phí, không giới hạn ([ADR-0002](docs/adr/0002-thanh-toan-chuyen-sang-1-1.md), [ADR-0004](docs/adr/0004-ai-qua-claude-code-cli.md), [ADR-0005](docs/adr/0005-nen-tang-windows-truoc.md)) |
+| **1.0 (MVP, Beta)** | **App Windows (Tauri + React)**, một người dùng. Tài khoản, task, task lặp lại, board ngày, lịch Google / Outlook và timebox, khung giờ channel, backlog và rollover, timer và Focus, Daily planning, Daily shutdown, **trợ lý AI qua Claude Code CLI + MCP local**. Miễn phí, không giới hạn ([ADR-0002](docs/adr/0002-thanh-toan-chuyen-sang-1-1.md), [ADR-0004](docs/adr/0004-ai-qua-claude-code-cli.md), [ADR-0005](docs/adr/0005-nen-tang-windows-truoc.md), [ADR-0010](docs/adr/0010-tauri-react-va-backend-typescript.md)) |
 | **1.1** | **Web, macOS.** Trial 14 ngày, thanh toán gói cá nhân và chế độ chỉ đọc; Weekly planning / review, objective, analytics, Pomodoro, auto-schedule, lập lịch cứng cho task lặp, Gmail / Jira / Notion |
 | **1.2** | **iOS / Android.** Slack / Teams, Focus Bar. Workspace nhiều thành viên và tính tiền theo ghế từ 1.2 trở đi ([`docs/02`](docs/02-tinh-nang-ban-sau.md)) |
 
@@ -30,17 +30,13 @@ Bên ngoài vòng ngày là vòng tuần: Weekly planning (đặt objective vào
 .
 ├── README.md
 ├── GLOSSARY.md                         # bảng thuật ngữ chung
-├── pubspec.yaml                        # pub workspace gốc
+├── package.json, pnpm-workspace.yaml   # pnpm workspace gốc
 ├── apps/
-│   ├── desktop/                        # app Flutter Windows (wakeup_desktop)
-│   ├── server/                         # backend Dart shelf + migration (wakeup_server)
-│   ├── widgetbook/                     # Widgetbook + golden test thư viện widget (wakeup_widgetbook)
+│   ├── desktop/                        # app Tauri + React + Tailwind (@wakeup/desktop); src/ui do Subframe đồng bộ
+│   ├── server/                         # backend TypeScript Hono + migration (@wakeup/server)
 │   └── web-mini/                       # trang web tối giản
 ├── packages/
-│   ├── core/                           # logic dùng chung app + server (wakeup_core)
-│   └── ds_tokens/                      # token và hợp đồng component sinh từ Figma (wakeup_ds_tokens)
-├── tools/
-│   └── figma-codegen/                  # plugin Figma: snippet Flutter trong Dev Mode
+│   └── core/                           # logic dùng chung app + server (@wakeup/core)
 ├── deploy/                             # Docker Compose, Caddy, sao lưu
 └── docs/
     ├── 00-danh-muc-nhom-tinh-nang.md   # danh mục 12 nhóm, trạng thái từng tài liệu
@@ -80,7 +76,7 @@ Bên ngoài vòng ngày là vòng tuần: Weekly planning (đặt objective vào
 - **Bắt đầu từ PRD** để hiểu vấn đề, người dùng và phạm vi. Sau đó đọc **SRS** để biết chi tiết cần làm.
 - **PRD** có 10 mục: bối cảnh và vấn đề, người dùng, phạm vi, nguyên tắc sản phẩm, quy tắc / cấu hình, luồng trải nghiệm, use case + user story + acceptance criteria, chỉ số, rủi ro, câu hỏi mở.
 - **SRS** có 10 mục: tổng quan, user story, business rule (BR), trạng thái, use case (luồng chính, luồng thay thế A#, luồng lỗi E#), điểm vào, màn hình (SCR), API, danh sách thông báo (MSG), yêu cầu phi chức năng.
-- **Giao diện** theo design system riêng trên Figma; mục màn hình (SCR) trong SRS chỉ mô tả thành phần và hành vi, không mô tả hình ảnh. Cách phân tầng DS component / Snowflake và tổ chức folder Figma: [`docs/design-system/`](docs/design-system/00-knowledge-base-components-snowflakes.md).
+- **Giao diện** theo design system riêng, thiết kế trong Subframe (ADR-0010); mục màn hình (SCR) trong SRS chỉ mô tả thành phần và hành vi, không mô tả hình ảnh. Cách phân tầng DS component / Snowflake và tổ chức folder Figma: [`docs/design-system/`](docs/design-system/00-knowledge-base-components-snowflakes.md).
 - **API, mã lỗi, job** trong SRS là hợp đồng nghiệp vụ tham khảo; cách hiện thực theo [`docs/tech/01`](docs/tech/01-quyet-dinh-tech-stack-va-api.md).
 - Mỗi tài liệu chỉ mô tả phần thuộc nhóm của nó. Phần thuộc nhóm khác được ghi chú `(Gxx)` để người đọc mở tài liệu nhóm đó.
 - Quy tắc nhiều nhóm cùng dùng nằm ở [`docs/01-quy-tac-dung-chung.md`](docs/01-quy-tac-dung-chung.md) và được tham chiếu bằng mã `QC-xx`. Thuật ngữ chuẩn nằm ở [`GLOSSARY.md`](GLOSSARY.md).
@@ -104,24 +100,24 @@ Chi tiết ở [quyết định chốt mâu thuẫn](docs/review/quyet-dinh-chot
 - Ngày làm việc bắt đầu lúc **04:00** (chỉnh trong 00:00–06:00); đổi cài đặt có hiệu lực từ ngày làm việc kế tiếp; đổi timezone không đổi ngày của task (QC-01, ADR-0001).
 - Thùng rác giữ task đã xoá **30 ngày**.
 - Bản 1.0 miễn phí; trial, thanh toán gói cá nhân và chế độ chỉ đọc ở bản 1.1; nhiều thành viên từ 1.2 trở đi (ADR-0002, Q47).
-- Bản 1.0 là app Windows (Flutter) cho một người dùng, có tài khoản và dữ liệu trên cloud; web + macOS ở 1.1, di động ở 1.2 (ADR-0005).
+- Bản 1.0 là app Windows cho một người dùng, có tài khoản và dữ liệu trên cloud; web + macOS ở 1.1, di động ở 1.2 (ADR-0005). Ban đầu chọn Flutter, ngày 17/11/2026 đổi sang Tauri + React (ADR-0010).
 - Trợ lý AI chạy bằng Claude Code CLI của người dùng, điều khiển app qua MCP local, có từ 1.0; mặc định tắt; thay đổi áp dụng ngay kèm Hoàn tác; chờ duyệt khi dùng dữ liệu tích hợp; AI được hoàn thành / xoá task (vào Thùng rác), không cần công tắc riêng, trừ task có liên kết tích hợp (QC-12, ADR-0004, F4).
 - Mỗi channel có thể đặt khung giờ riêng (QC-02).
 - Kiến trúc thông tin app Windows 1.0: khung ba vùng (sidebar, vùng chính, panel phải), chi tiết task là dialog, chat AI ở panel phải, × thu về khay (IA-01..IA-20, [`docs/design-brief/00-kien-truc-thong-tin.md`](docs/design-brief/00-kien-truc-thong-tin.md)).
 - Nền tảng design system: điềm tĩnh, design system riêng cho mọi nền tảng, nhấn teal, AI tím, font Inter, icon Lucide, WCAG AA (DS-01..DS-16, [`docs/design-brief/01-nen-tang-design-system.md`](docs/design-brief/01-nen-tang-design-system.md)).
 - Bản 1.0 không bắt buộc lưu dữ liệu tại Việt Nam, dùng máy chủ khu vực châu Á.
 
-## Tech stack đã chốt (05/11/2026)
+## Tech stack đã chốt (05/11/2026, đổi client và backend 17/11/2026)
 
-Chi tiết ở [`docs/tech/01`](docs/tech/01-quyet-dinh-tech-stack-va-api.md) và ADR-0006 → ADR-0009.
+Chi tiết ở [`docs/tech/01`](docs/tech/01-quyet-dinh-tech-stack-va-api.md) và ADR-0006 → ADR-0010.
 
-- **Client:** Flutter Windows (10 22H2+ / 11, x64), Riverpod, go_router, Drift + SQLCipher; bộ cài Inno Setup ký bằng Azure Trusted Signing, tự cập nhật.
-- **Backend:** Dart (`shelf`, SQL tay, dbmate), PostgreSQL; logic chung trong package `wakeup_core`.
+- **Client:** Tauri 2 + React + TypeScript + Vite + Tailwind CSS v4 trên Windows (10 22H2+ / 11, x64); chạy local-first với SQLite + SQLCipher trên máy; bộ cài NSIS ký bằng Azure Trusted Signing, tự cập nhật. Cùng mã nguồn cho macOS và web ở 1.1.
+- **Backend:** TypeScript trên Node 22 (Hono, SQL tay, dbmate), PostgreSQL, chạy trên Linux; logic chung trong package `@wakeup/core`.
 - **Đồng bộ:** hàng đợi lệnh (`POST /v1/commands`, `GET /v1/changes`, WebSocket báo thay đổi).
 - **Hạ tầng:** một VPS Ubuntu ở Singapore, Docker Compose + Caddy, prod và staging; `wakeup.tannguyenho.tech`, `api.wakeup.tannguyenho.tech`.
 - **AI:** `claude -p` chỉ được dùng công cụ `mcp__wakeup__*`; MCP qua HTTP `127.0.0.1` có token; PO chấp nhận rủi ro điều khoản, dự phòng bằng API key do người dùng cấu hình trong Claude Code (ADR-0009).
 - **Xác minh Google OAuth:** chủ dự án nộp ngay sau khi dựng trang web tối giản; Beta chạy chế độ Production chưa xác minh.
-- **Design system:** mapping 1-1 Figma ↔ Flutter bằng lớp hợp đồng sinh code (không dùng Code Connect vì cần gói Organization; chạy thử lại trên team Figma thật trước khi chốt hẳn).
+- **Design system:** Subframe là nguồn sự thật của theme và component, đồng bộ một chiều vào `apps/desktop/src/ui/`. Figma còn dùng cho concept, user flow và handoff.
 
 ## Câu hỏi còn mở
 
@@ -141,24 +137,23 @@ Các tài liệu dưới đây soạn trên Claude, chỉ người được chia
 
 ## Phát triển
 
-Cần Flutter 3.47 (kèm Dart 3.13). Chạy ở thư mục gốc:
+Cần Node 22 và pnpm (`corepack enable`). Chạy app Tauri cần thêm Rust stable; chỉ làm giao diện trên trình duyệt thì chưa cần. Chạy ở thư mục gốc:
 
 ```
-flutter pub get
+pnpm install
 ```
 
 | Việc | Lệnh |
 |---|---|
-| Test logic dùng chung (gồm ca chuẩn QC-01) | `cd packages/core && dart test` |
-| Test backend | `cd apps/server && dart test` |
+| Test tất cả (gồm ca chuẩn QC-01) | `pnpm test` |
+| Kiểm tra kiểu, lint, định dạng | `pnpm typecheck`, `pnpm lint`, `pnpm format:check` |
 | Chạy backend | xem [`apps/server/README.md`](apps/server/README.md) |
-| Sinh lại token và hợp đồng component từ `tokens.json`, `components.json` | `cd packages/ds_tokens && dart run tool/generate.dart` |
-| Chạy app Windows | `cd apps/desktop && flutter run -d windows` |
-| Xem Widgetbook trên trình duyệt | `cd apps/widgetbook && flutter run -d chrome` |
-| Golden test thư viện widget (Linux) | `cd apps/widgetbook && flutter test` (`--update-goldens` để cập nhật ảnh) |
-| Build và test plugin Figma Codegen (Node 22) | `cd tools/figma-codegen && npm ci && npm test && npm run build` |
+| Chạy giao diện trên trình duyệt | `pnpm --filter @wakeup/desktop dev` |
+| Chạy app Tauri | `cd apps/desktop && pnpm tauri dev` |
+| Đồng bộ theme và component từ Subframe | `cd apps/desktop && pnpm ui:sync` (xem [`apps/desktop/README.md`](apps/desktop/README.md)) |
+| Build bộ cài | `cd apps/desktop && pnpm tauri build` |
 
-CI ở `.github/workflows/ci.yml`: định dạng, analyze, test cả 4 package, chạy migration trên Postgres, build image server, build app Windows, golden test Widgetbook (Linux), test và kiểm `dist/` của plugin Figma Codegen.
+CI ở `.github/workflows/ci.yml`: định dạng, lint, kiểm tra kiểu, test cả 3 package, chạy migration trên Postgres, build image server, build app Tauri trên Windows và macOS.
 
 ## Cách cập nhật tài liệu
 

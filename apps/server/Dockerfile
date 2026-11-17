@@ -1,21 +1,21 @@
 # Build từ thư mục gốc repo: docker build -f apps/server/Dockerfile .
-FROM dart:3.13 AS build
+FROM node:22-bookworm-slim AS build
 WORKDIR /src
-COPY pubspec.yaml pubspec.lock ./
+RUN corepack enable
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml tsconfig.base.json ./
 COPY packages/core packages/core
 COPY apps/server apps/server
-# Workspace còn khai báo các package Flutter (desktop, widgetbook, ds_tokens);
-# image server chỉ cần core + server nên giữ đúng hai mục đó trong danh sách
-# workspace trước khi pub get (thêm thành viên mới không làm hỏng image).
-RUN sed -i '/^  - /{/packages\/core$\|apps\/server$/!d}' pubspec.yaml \
- && dart pub get \
- && dart compile exe apps/server/bin/server.dart -o /src/server
+# Chỉ cài và build server cùng các package workspace mà nó phụ thuộc.
+RUN pnpm install --frozen-lockfile --filter @wakeup/server... \
+ && pnpm --filter @wakeup/server build \
+ && pnpm --filter @wakeup/server deploy --prod --legacy /out
 
-FROM debian:bookworm-slim
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
- && rm -rf /var/lib/apt/lists/*
-COPY --from=build /src/server /app/server
-COPY --from=build /usr/share/zoneinfo /usr/share/zoneinfo
+FROM node:22-bookworm-slim
+ENV NODE_ENV=production
+WORKDIR /app
+COPY --from=build /out/node_modules node_modules
+COPY --from=build /out/package.json package.json
+COPY --from=build /src/apps/server/dist dist
 EXPOSE 8080
-USER nobody
-CMD ["/app/server"]
+USER node
+CMD ["node", "dist/main.js"]

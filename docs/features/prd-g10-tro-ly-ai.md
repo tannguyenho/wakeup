@@ -14,7 +14,7 @@
 
 ## 1.1 Bối cảnh
 
-Bản 1.0 là app Windows (Flutter) cho một người dùng (Q35, Q45, ADR-0005). Trợ lý AI có ngay từ 1.0 và chạy bằng **Claude Code CLI** mà người dùng tự cài và đăng nhập bằng tài khoản Claude của họ (Q46, ADR-0004, QC-12). App phát hiện Claude Code trên máy và dùng nó cho bốn chỗ tốn công nhất của vòng lặp ngày:
+Bản 1.0 là app Windows (Tauri) cho một người dùng (Q35, Q45, ADR-0005). Trợ lý AI có ngay từ 1.0 và chạy bằng **Claude Code CLI** mà người dùng tự cài và đăng nhập bằng tài khoản Claude của họ (Q46, ADR-0004, QC-12). App phát hiện Claude Code trên máy và dùng nó cho bốn chỗ tốn công nhất của vòng lặp ngày:
 
 - lập kế hoạch buổi sáng (Planning Agent);
 - thao tác nhanh trong ngày bằng ngôn ngữ tự nhiên (khung chat trợ lý, giao diện như chat thường);
@@ -65,7 +65,7 @@ Nhóm G10 lo các tính năng trên cùng việc phát hiện Claude Code, MCP l
 
 ## 3.1 Trong phạm vi (bản 1.0)
 
-- Nền tảng: app Windows (Flutter) (Q45, ADR-0005). Cách cung cấp AI trên web, macOS (1.1) và iOS / Android (1.2): tech chốt (ADR-0004, câu hỏi mở mục 10).
+- Nền tảng: app Windows (Tauri) (Q45, ADR-0005). Cách cung cấp AI trên web, macOS (1.1) và iOS / Android (1.2): tech chốt (ADR-0004, câu hỏi mở mục 10).
 - Phát hiện Claude Code trên máy: đã cài chưa, đã đăng nhập chưa, phiên bản có được hỗ trợ không; không sẵn sàng thì ẩn tính năng AI và hiện hướng dẫn cài (QC-12 mục 2).
 - MCP server local: bộ công cụ đọc / ghi để Claude Code (do app gọi hoặc người dùng mở trong terminal) điều khiển app, cùng rào chắn (QC-12 mục 3–6).
 - Đồng ý dùng AI lần đầu: trợ lý AI mặc định tắt; lần đầu bật phải qua màn đồng ý gọn, nói rõ dữ liệu nào được đưa cho Claude Code; app lưu thời điểm đồng ý (Q21, QC-12 mục 7).

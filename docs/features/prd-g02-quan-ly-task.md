@@ -51,7 +51,7 @@ Task là đơn vị trung tâm của sản phẩm: board theo ngày, lịch, tim
 
 ## 3.1 Trong phạm vi (MVP)
 
-- Nền tảng: bản 1.0 là app **Windows** (Flutter), một người dùng, dữ liệu trên cloud gắn tài khoản (Q45, ADR-0005). Web và macOS từ 1.1, iOS / Android từ 1.2, dùng cùng đặc tả.
+- Nền tảng: bản 1.0 là app **Windows** (Tauri), một người dùng, dữ liệu trên cloud gắn tài khoản (Q45, ADR-0005). Web và macOS từ 1.1, iOS / Android từ 1.2, dùng cùng đặc tả.
 - Tạo task: từ ô soạn trên cột ngày, phím A, dán URL.
 - Gợi ý thời lượng và channel bằng trợ lý AI qua Claude Code CLI (QC-12). Trợ lý AI tắt, chưa đồng ý hoặc máy không có Claude Code → không có gợi ý AI; app không gọi LLM nào khác (Q33).
 - Chi tiết task: channel, priority, ngày dự định, hạn chót (due), thời lượng kế hoạch, subtask (một cấp), notes, comment, nhật ký hoạt động.
@@ -362,7 +362,7 @@ AC10: Số ngày bị hoãn của task tính theo lịch **hiện tại** của 
 - Đã chốt 04/11/2026: bản 1 chỉ một người dùng; người dùng tạo channel tự do; quyền tạo channel chung / riêng tư, giao task, follow để bản sau (Q35). Task được giao (bản sau) vào bucket "Tuần sau", đặt lên đầu (Q36).
 - Đã chốt 04/11/2026: G02 sở hữu cài đặt khung giờ channel; lịch của task = khung channel nếu có, ngược lại lịch chung (Q38a, QC-02 mục 5–9).
 - Đã chốt 04/11/2026: AI chỉ hoàn thành / xoá task khi người dùng bật công tắc (Q46). **Đã chốt lại 06/11/2026 (F4):** bỏ công tắc, AI luôn hoàn thành / xoá được khi trợ lý bật; áp cho cả subtask; task có liên kết tích hợp không bao giờ được AI hoàn thành hay xoá (Q46, D10, QC-12 mục 4).
-- Đã chốt 04/11/2026: nền tảng 1.0 là app Windows (Flutter), 1.1 web + macOS, 1.2 iOS / Android (Q45, ADR-0005).
+- Đã chốt 04/11/2026: nền tảng 1.0 là app Windows (Tauri), 1.1 web + macOS, 1.2 iOS / Android (Q45, ADR-0005).
 - Đã chốt 04/11/2026: khung giờ channel một khoảng mỗi ngày, không vắt qua nửa đêm, bước 15 phút (D1).
 - Đã chốt 04/11/2026: đổi khung giờ channel có hiệu lực từ ngày làm việc kế tiếp (D2).
 - Đã chốt 04/11/2026: channel hệ thống "Chưa phân loại" không có khung giờ riêng, luôn theo lịch chung (D3).

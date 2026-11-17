@@ -14,7 +14,7 @@ G01 là cửa vào sản phẩm: đăng ký, đăng nhập, onboarding lần đ�
 - **Lịch làm việc chung** (ngày làm việc trong tuần, giờ làm từng ngày) do G01 sở hữu (QC-02 mục 1–4): G04 tính sức chứa, G05 auto-schedule (1.1), G08 không mở ritual vào ngày nghỉ, G09 dựng cột ngày và giờ gửi recap. **Khung giờ channel** do G02 sở hữu (QC-02 mục 5–9); G01 chỉ tham chiếu, không đặc tả lại;
 - giờ plan ngày xác định lúc nhắc Daily planning (G08).
 
-Bản 1.0 là **app Windows (Flutter)** cho **một người dùng**, có tài khoản và dữ liệu trên cloud (Q35, Q45, [ADR-0005](../adr/0005-nen-tang-windows-truoc.md)); web và macOS từ 1.1, iOS / Android từ 1.2. Bản 1.0 miễn phí, gắn nhãn Beta: đăng ký tạo workspace cá nhân, **không** tạo trial. Trial 14 ngày và thanh toán **gói cá nhân cho một người dùng** (không tính ghế) bắt đầu từ bản 1.1 (G12, Q47, [ADR-0002](../adr/0002-thanh-toan-chuyen-sang-1-1.md)); tài khoản có từ 1.0 nhận trial 14 ngày tính từ ngày phát hành 1.1. Các phần nhiều thành viên (lời mời, ghế, xoá tài khoản khi ở workspace nhiều người) là **bản sau (1.2 trở đi)** — xem [`docs/02-tinh-nang-ban-sau.md`](../02-tinh-nang-ban-sau.md). G01 đặc tả khung trang Cài đặt và các nhóm Chung, Hiển thị, Lịch làm việc, Phím tắt, Hồ sơ, Tài khoản; nhóm **Trợ lý AI** chỉ là điểm vào trong khung trang, hành vi do G10 sở hữu (QC-12); các nhóm cài đặt khác do nhóm sở hữu đặc tả.
+Bản 1.0 là **app Windows (Tauri)** cho **một người dùng**, có tài khoản và dữ liệu trên cloud (Q35, Q45, [ADR-0005](../adr/0005-nen-tang-windows-truoc.md)); web và macOS từ 1.1, iOS / Android từ 1.2. Bản 1.0 miễn phí, gắn nhãn Beta: đăng ký tạo workspace cá nhân, **không** tạo trial. Trial 14 ngày và thanh toán **gói cá nhân cho một người dùng** (không tính ghế) bắt đầu từ bản 1.1 (G12, Q47, [ADR-0002](../adr/0002-thanh-toan-chuyen-sang-1-1.md)); tài khoản có từ 1.0 nhận trial 14 ngày tính từ ngày phát hành 1.1. Các phần nhiều thành viên (lời mời, ghế, xoá tài khoản khi ở workspace nhiều người) là **bản sau (1.2 trở đi)** — xem [`docs/02-tinh-nang-ban-sau.md`](../02-tinh-nang-ban-sau.md). G01 đặc tả khung trang Cài đặt và các nhóm Chung, Hiển thị, Lịch làm việc, Phím tắt, Hồ sơ, Tài khoản; nhóm **Trợ lý AI** chỉ là điểm vào trong khung trang, hành vi do G10 sở hữu (QC-12); các nhóm cài đặt khác do nhóm sở hữu đặc tả.
 
 ## 1.2 Vấn đề
 
@@ -47,7 +47,7 @@ Bản 1.0 là **app Windows (Flutter)** cho **một người dùng**, có tài k
 
 ## 3.1 Trong phạm vi (MVP)
 
-- Nền tảng: **app Windows (Flutter)**, một người dùng, tài khoản và dữ liệu trên cloud (Q35, Q45, ADR-0005). Web và macOS từ bản 1.1, iOS / Android từ bản 1.2, dùng cùng đặc tả. Tech stack, cách lưu phiên trên máy: tech chốt — `docs/tech/`.
+- Nền tảng: **app Windows (Tauri)**, một người dùng, tài khoản và dữ liệu trên cloud (Q35, Q45, ADR-0005). Web và macOS từ bản 1.1, iOS / Android từ bản 1.2, dùng cùng đặc tả. Tech stack, cách lưu phiên trên máy: tech chốt — `docs/tech/`.
 - Đăng ký bằng Google, Microsoft, email + mật khẩu (xác minh bằng mã 6 số). Trên app desktop, đăng nhập Google / Microsoft mở **trình duyệt hệ thống** tới trang của nhà cung cấp, xong thì tự quay lại app.
 - Đăng nhập, đăng xuất, quên / đặt lại mật khẩu, khoá tạm khi nhập sai nhiều lần, quản lý phiên đăng nhập trên thiết bị Windows.
 - Onboarding 5 bước, Daily planning đầu tiên có hướng dẫn (G08), tooltip theo ngữ cảnh hiện 1 lần.
@@ -383,7 +383,7 @@ AC04: Đồng ý dùng Trợ lý AI là đồng ý riêng, qua màn gọn của 
 - Đã chốt 04/11/2026 một phần: bản 1.0 không bắt buộc lưu tại Việt Nam, dùng máy chủ khu vực châu Á, kèm hồ sơ đánh giá tác động chuyển dữ liệu ra nước ngoài (Q29). **Còn mở:** pháp chế xác nhận trước khi phát hành.
 - Đã chốt 04/11/2026: đăng nhập Google / Microsoft bằng email của tài khoản đã xác minh thì phải nhập mật khẩu để liên kết; tài khoản chưa xác minh bị thay thế và mật khẩu cũ bị huỷ; phương thức gắn theo `provider + sub` (B1, B2).
 - Đã chốt 04/11/2026: người đăng ký qua lời mời (bản sau) không tạo workspace riêng; mỗi người một workspace, nhiều workspace để bản sau (Q23).
-- Đã chốt 04/11/2026: bản 1.0 là app Windows (Flutter), có tài khoản và dữ liệu trên cloud; 1.1 thêm web + macOS, 1.2 thêm iOS / Android; tech stack và API chốt riêng ở `docs/tech/` (Q45, ADR-0005).
+- Đã chốt 04/11/2026: bản 1.0 là app Windows (Tauri), có tài khoản và dữ liệu trên cloud; 1.1 thêm web + macOS, 1.2 thêm iOS / Android; tech stack và API chốt riêng ở `docs/tech/` (Q45, ADR-0005).
 - Đã chốt 04/11/2026: bản 1 chỉ cho một người dùng; lời mời, xoá tài khoản khi ở workspace nhiều người, chuyển quyền sở hữu để bản sau, gom ở `docs/02-tinh-nang-ban-sau.md` (Q35, Q37).
 - Đã chốt 04/11/2026: trợ lý AI chạy bằng Claude Code CLI, có từ 1.0, mặc định tắt, màn đồng ý gọn; G01 chỉ đặt nhóm cài đặt "Trợ lý AI", hành vi do G10 sở hữu (Q46, QC-12, ADR-0004).
 - Đã chốt 04/11/2026: lịch làm việc chung do G01 sở hữu; khung giờ channel do G02 sở hữu (Q38 / Q38a, QC-02).

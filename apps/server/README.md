@@ -1,14 +1,20 @@
-# wakeup_server
+# @wakeup/server
 
-Backend Wakeup: Dart `shelf`, PostgreSQL, SQL tay, migration bằng dbmate ([`docs/tech/01`](../../docs/tech/01-quyet-dinh-tech-stack-va-api.md) mục 5–7, [ADR-0006](../../docs/adr/0006-backend-dart-va-dong-bo-theo-lenh.md)).
+Backend Wakeup: TypeScript trên Node 22, [Hono](https://hono.dev), PostgreSQL, SQL tay, migration bằng dbmate ([`docs/tech/01`](../../docs/tech/01-quyet-dinh-tech-stack-va-api.md) mục 5–7, [ADR-0006](../../docs/adr/0006-backend-dart-va-dong-bo-theo-lenh.md), [ADR-0010](../../docs/adr/0010-tauri-react-va-backend-typescript.md)). Chạy trên Linux bằng Docker; dùng chung logic nghiệp vụ với app qua package `@wakeup/core`.
 
-Chạy trên máy:
+Chạy trên máy (từ thư mục gốc repo, sau `pnpm install`):
 
 ```
-docker compose -f ../../deploy/compose.dev.yaml up -d
-dbmate --url "postgres://wakeup:wakeup@localhost:5432/wakeup?sslmode=disable" -d db/migrations up
-DATABASE_URL="postgres://wakeup:wakeup@localhost:5432/wakeup?sslmode=disable" dart run bin/server.dart
+docker compose -f deploy/compose.dev.yaml up -d
+dbmate --url "postgres://wakeup:wakeup@localhost:5432/wakeup?sslmode=disable" -d apps/server/db/migrations up
+DATABASE_URL="postgres://wakeup:wakeup@localhost:5432/wakeup?sslmode=disable" pnpm --filter @wakeup/server dev
 ```
+
+| Việc | Lệnh |
+|---|---|
+| Test | `pnpm --filter @wakeup/server test` |
+| Build bundle `dist/main.js` | `pnpm --filter @wakeup/server build` |
+| Build image | `docker build -f apps/server/Dockerfile -t wakeup-server .` (ở thư mục gốc) |
 
 Endpoint hiện có:
 

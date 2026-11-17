@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Icon tạm: mặt trời mọc trên nền teal. Thay bằng icon thật từ designer,
+       rồi chạy `pnpm tauri icon app-icon.svg` để sinh src-tauri/icons/. -->
+  <rect width="1024" height="1024" rx="224" fill="#0D9488" />
+  <circle cx="512" cy="600" r="208" fill="#FFFFFF" />
+  <rect x="0" y="600" width="1024" height="424" fill="#0F766E" />
+  <rect x="192" y="592" width="640" height="24" rx="12" fill="#FFFFFF" />
+</svg>

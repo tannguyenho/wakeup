@@ -8,7 +8,7 @@
 
 ## 1.1 Bối cảnh
 
-G12 lo hai mảng: **kinh doanh** (trial, thanh toán gói cá nhân, chế độ chỉ đọc — 1.1) và **làm việc nhóm** (workspace nhiều thành viên, ghế, vai trò, quyền riêng tư, giao và follow task — bản sau, 1.2 trở đi). G12 cũng sở hữu cài đặt Thông báo và trung tâm thông báo trong app: nhóm khác phát sinh sự kiện (G05, G07, G08, G09, G11), G12 quyết định ai nhận, qua kênh nào. Bản 1.0 là **app Windows (Flutter)** cho **một người dùng**, có tài khoản và dữ liệu trên cloud (Q35, Q45, ADR-0005), **miễn phí, không giới hạn, gắn nhãn Beta**: mỗi tài khoản một workspace cá nhân do chính họ làm chủ sở hữu (tạo ở G01); G12 ở 1.0 chỉ còn workspace cá nhân và thông báo (cài đặt, trung tâm, huỷ đăng ký email). Bản 1.1 (thêm web, macOS) vẫn cho **một người dùng**, mở trial 14 ngày, thanh toán **gói cá nhân** (không tính ghế), chế độ chỉ đọc, quyền theo gói (Q47, ADR-0002). Người dùng có từ 1.0 nhận trial 14 ngày tính từ ngày phát hành 1.1. Mời thành viên, ghế và tính tiền theo ghế, vai trò, Privacy, giao / follow task, chuyển quyền sở hữu là **bản sau, 1.2 trở đi** (Q35, Q37, Q47) — đặc tả giữ nguyên trong tài liệu này, gắn nhãn "bản sau", danh sách gom ở [`docs/02-tinh-nang-ban-sau.md`](../02-tinh-nang-ban-sau.md).
+G12 lo hai mảng: **kinh doanh** (trial, thanh toán gói cá nhân, chế độ chỉ đọc — 1.1) và **làm việc nhóm** (workspace nhiều thành viên, ghế, vai trò, quyền riêng tư, giao và follow task — bản sau, 1.2 trở đi). G12 cũng sở hữu cài đặt Thông báo và trung tâm thông báo trong app: nhóm khác phát sinh sự kiện (G05, G07, G08, G09, G11), G12 quyết định ai nhận, qua kênh nào. Bản 1.0 là **app Windows (Tauri)** cho **một người dùng**, có tài khoản và dữ liệu trên cloud (Q35, Q45, ADR-0005), **miễn phí, không giới hạn, gắn nhãn Beta**: mỗi tài khoản một workspace cá nhân do chính họ làm chủ sở hữu (tạo ở G01); G12 ở 1.0 chỉ còn workspace cá nhân và thông báo (cài đặt, trung tâm, huỷ đăng ký email). Bản 1.1 (thêm web, macOS) vẫn cho **một người dùng**, mở trial 14 ngày, thanh toán **gói cá nhân** (không tính ghế), chế độ chỉ đọc, quyền theo gói (Q47, ADR-0002). Người dùng có từ 1.0 nhận trial 14 ngày tính từ ngày phát hành 1.1. Mời thành viên, ghế và tính tiền theo ghế, vai trò, Privacy, giao / follow task, chuyển quyền sở hữu là **bản sau, 1.2 trở đi** (Q35, Q37, Q47) — đặc tả giữ nguyên trong tài liệu này, gắn nhãn "bản sau", danh sách gom ở [`docs/02-tinh-nang-ban-sau.md`](../02-tinh-nang-ban-sau.md).
 
 ## 1.2 Vấn đề
 
@@ -45,7 +45,7 @@ G12 lo hai mảng: **kinh doanh** (trial, thanh toán gói cá nhân, chế đ�
 
 Bản 1.0 (miễn phí, nhãn Beta):
 
-- Nền tảng: **app Windows (Flutter)**, một người dùng, tài khoản và dữ liệu trên cloud (Q35, Q45, ADR-0005). Web và macOS từ bản 1.1, iOS / Android từ bản 1.2, dùng cùng đặc tả.
+- Nền tảng: **app Windows (Tauri)**, một người dùng, tài khoản và dữ liệu trên cloud (Q35, Q45, ADR-0005). Web và macOS từ bản 1.1, iOS / Android từ bản 1.2, dùng cùng đặc tả.
 - Workspace cá nhân: mỗi tài khoản một workspace, là chủ sở hữu; đổi tên workspace. Không có nút "Xoá workspace": muốn xoá thì xoá tài khoản (G01) (B47). Không có trial, Billing, chế độ chỉ đọc.
 - Cài đặt Thông báo (bật / tắt theo sự kiện × kênh), trung tâm thông báo trong app, thông báo hệ thống của Windows (D12: nhắc ritual, nhắc timer > 4 giờ), email có link huỷ đăng ký 1 chạm.
 
@@ -347,7 +347,7 @@ AC02: Ở 1.0 trang xác nhận không có link "Mở cài đặt thông báo" v
 
 - Chọn cổng thanh toán nào: Stripe, VNPay, MoMo, hay kết hợp? **Còn mở, chốt trước 1.1** (Q30); gợi ý Stripe cho thẻ quốc tế, VNPay / MoMo cho thanh toán nội địa.
 - Danh sách gói, giá tháng / năm là gì? **Còn mở.** Đã chốt 04/11/2026: cấu trúc quyền theo gói theo QC-10 chỉ gồm số tài khoản lịch và số tích hợp; AI **không có hạn mức theo gói** (Q46, QC-12 mục 8 — thay C32).
-- Đã chốt 04/11/2026: bản 1.0 là app Windows (Flutter), có tài khoản và dữ liệu trên cloud; 1.1 thêm web + macOS; 1.2 thêm iOS / Android (Q45, ADR-0005).
+- Đã chốt 04/11/2026: bản 1.0 là app Windows (Tauri), có tài khoản và dữ liệu trên cloud; 1.1 thêm web + macOS; 1.2 thêm iOS / Android (Q45, ADR-0005).
 - Đã chốt 04/11/2026: bản 1 chỉ cho một người dùng; mời, ghế, vai trò, giao / follow task, Privacy, chuyển quyền sở hữu để bản sau (1.2 trở đi), gom ở `docs/02-tinh-nang-ban-sau.md` (Q35, Q37, Q47).
 - Đã chốt 04/11/2026 một phần: bản 1.0 không bắt buộc lưu tại Việt Nam, dùng máy chủ khu vực châu Á, kèm hồ sơ đánh giá tác động chuyển dữ liệu ra nước ngoài (Q29). **Còn mở:** pháp chế xác nhận trước khi phát hành.
 - Đã chốt 04/11/2026: giữ dữ liệu workspace chỉ đọc 90 ngày, sau đó chỉ xoá dữ liệu workspace, không xoá tài khoản; báo mọi thành viên, email bắt buộc (C8).

@@ -45,7 +45,7 @@ Board ngày (Home) là màn hình người dùng mở nhiều nhất: mỗi cộ
 
 ## 3.1 Trong phạm vi (MVP)
 
-- Nền tảng: app Windows (Flutter) ở 1.0 (Q45, ADR-0005). Web và macOS từ 1.1, iOS / Android từ 1.2 dùng cùng đặc tả. Chi tiết kỹ thuật (lưu trên máy, tính nền): tech chốt — `docs/tech/`.
+- Nền tảng: app Windows (Tauri) ở 1.0 (Q45, ADR-0005). Web và macOS từ 1.1, iOS / Android từ 1.2 dùng cùng đặc tả. Chi tiết kỹ thuật (lưu trên máy, tính nền): tech chốt — `docs/tech/`.
 - Home board: cột ngày cuộn ngang vô hạn; header cột có thứ, ngày, thanh tiến độ, "Thêm task", tổng thời lượng, nút "Plan" khi hover (cột từ hôm nay tới hôm nay + 7 ngày, B29).
 - Today view: một ngày + lịch của ngày đó.
 - Chế độ xem (phím Tab): Board, Calendar 1 ngày, 3 ngày, Weekdays, Week, Month.

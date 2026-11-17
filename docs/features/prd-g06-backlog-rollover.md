@@ -44,7 +44,7 @@ Không phải việc nào cũng làm hôm nay, và không phải việc nào lê
 
 ## 3.1 Trong phạm vi (MVP)
 
-- Nền tảng: app Windows (Flutter) ở 1.0 (Q45, ADR-0005). Web và macOS từ 1.1, iOS / Android từ 1.2 dùng cùng đặc tả. Job rollover chạy phía server; chi tiết kỹ thuật: tech chốt — `docs/tech/`.
+- Nền tảng: app Windows (Tauri) ở 1.0 (Q45, ADR-0005). Web và macOS từ 1.1, iOS / Android từ 1.2 dùng cùng đặc tả. Job rollover chạy phía server; chi tiết kỹ thuật: tech chốt — `docs/tech/`.
 - Panel Backlog (sidebar, phím B): 6 bucket cố định, folder tuỳ chọn, nhóm theo channel, "Thêm task" trên đầu, panel ngày bên phải để kéo task ra.
 - Chuyển task vào backlog: Z → chọn bucket (1, 2, 3, 4, 5, 0); Shift+Z lên đầu backlog; mục "Chuyển vào backlog" trong menu Ngày dự định; kéo thả vào panel.
 - Lấy task từ backlog ra ngày: kéo vào cột ngày, chọn ngày trong menu Ngày dự định, phím S về hôm nay.

@@ -1,0 +1,12 @@
+pnpm-lock.yaml
+dist/
+node_modules/
+target/
+gen/
+.claude/
+docs/
+deploy/
+*.md
+# Subframe quản lý thư mục này (sync một chiều)
+apps/desktop/src/ui/
+apps/web-mini/

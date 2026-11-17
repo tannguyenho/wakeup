@@ -20,7 +20,7 @@
 | Actor | Người dùng đã đăng nhập · Hệ thống (job `recurrence.generate`, job `rollover` của G06) |
 | Phạm vi | Picker lặp (6 quy tắc, khoảng lặp, giờ "khoảng"), tạo series, sinh instance, ngày ngoại lệ, banner series, Trước / Sau, menu "Sửa series" (6 thao tác) và bảng phạm vi, danh sách series, quy tắc instance trùng series trong một ngày (QC-06) |
 | Ngoài phạm vi | Rollover và Lưu trữ (G06), projection (G04), timebox và lập lịch cứng (G05, bản 1.1, Q7), ngày kết thúc series, lặp theo ngày hoàn thành, lặp theo lịch làm việc / khung giờ channel (Q43), objective (G09), giao task (bản sau, Q35), chế độ chỉ đọc (1.1, QC-09) |
-| Nền tảng | App **Windows** (Flutter) ở 1.0, một người dùng, dữ liệu trên cloud gắn tài khoản (Q45, ADR-0005). Web, macOS từ 1.1; iOS / Android từ 1.2, dùng cùng đặc tả |
+| Nền tảng | App **Windows** (Tauri) ở 1.0, một người dùng, dữ liệu trên cloud gắn tài khoản (Q45, ADR-0005). Web, macOS từ 1.1; iOS / Android từ 1.2, dùng cùng đặc tả |
 | Figma | `[chưa có]` |
 
 ## 2. User Story
@@ -550,7 +550,7 @@ Bản EN: `[chờ bổ sung]`.
 
 | **Mục** | **Yêu cầu** `[giả định]` |
 | --- | --- |
-| Nền tảng | App Windows (Flutter) ở 1.0 (Q45, ADR-0005); job sinh instance chạy trên server (dữ liệu trên cloud), không phụ thuộc app đang mở. Kiến trúc cụ thể do tech chốt (`docs/tech/`) |
+| Nền tảng | App Windows (Tauri) ở 1.0 (Q45, ADR-0005); job sinh instance chạy trên server (dữ liệu trên cloud), không phụ thuộc app đang mở. Kiến trúc cụ thể do tech chốt (`docs/tech/`) |
 | Hiệu năng | \[SeriesCreate\] p95 ≤ 500 ms (gồm sinh 14 ngày đầu); instance 60 ngày hiện đủ trên board ≤ 5 giây; job sinh ≤ 50 ms / series |
 | Toàn vẹn | Khoá duy nhất `(series_id, series_date)` trên instance còn gắn series (BR-04); ngày ngoại lệ lưu trên series, độc lập vòng đời task (BR-15); job idempotent, chạy lại không tạo trùng; thao tác series trong một giao dịch |
 | Offline | Bật lặp, sửa instance chạy được khi mất mạng (hàng đợi, QC-08); hai thiết bị cùng bật lặp một task → lệnh tới sau bị từ chối `ALREADY_REPEATING`; thao tác series (BR-08) cần mạng, nút mờ kèm tooltip MSG-27 khi offline (QC-08 mục 7; UC-04 E4, UC-05 E3, UC-07 E2) |

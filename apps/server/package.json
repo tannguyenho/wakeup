@@ -1,0 +1,28 @@
+{
+  "name": "@wakeup/server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Backend của Wakeup (Hono + PostgreSQL, docs/tech/01 mục 5–7).",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsup",
+    "start": "node dist/main.js",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.0",
+    "@wakeup/core": "workspace:*",
+    "hono": "^4.8.0",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/pg": "^8.15.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}

@@ -14,7 +14,7 @@
 | Actor | Người dùng đã đăng nhập · App Windows · Claude Code CLI (do người dùng cài và đăng nhập trên máy; app gọi, hoặc người dùng mở trong terminal) · MCP server local của app (\[McpServer\], gồm bộ thực thi hành động AI \[AiActionExecutor\]) · Hệ thống (server cloud: lưu task, nhật ký, thay đổi AI) · Kỹ sư AI (bộ đánh giá) |
 | Phạm vi | Phát hiện Claude Code, đồng ý dùng AI lần đầu, MCP local và bộ công cụ, công tắc dữ liệu tích hợp, công cụ hoàn thành / xoá task (F4), thiết lập và chạy Planning Agent, Review Plan, "Hoàn tác kế hoạch AI", khung chat (hỏi đáp, ra lệnh, lịch sử), phiên Claude Code từ terminal, duyệt thay đổi của phiên có dữ liệu tích hợp, hoàn tác hành động AI, highlights AI, lời gọi AI cho gợi ý task (G02), phản hồi, cài đặt AI / Beta, xoá dữ liệu tích hợp khỏi lịch sử AI, bộ đánh giá |
 | Ngoài phạm vi | Trải nghiệm gợi ý planned / channel (G02), ritual thủ công và chia sẻ (G08), kết nối công cụ (G11), cài đặt / đăng nhập / cập nhật Claude Code (người dùng tự làm), app tự gọi LLM khác, hạn mức AI theo gói, agent chạy nền, nhập giọng nói, AI cho nhóm (bản sau, Q35), "Rules" là luật người dùng đặt cho AI (1.1; chốt 09/11/2026, B46) |
-| Nền tảng | Bản 1.0: app Windows (Flutter) (Q45, ADR-0005). Web, macOS (1.1) và iOS / Android (1.2): cách cung cấp AI do tech chốt (ADR-0004) |
+| Nền tảng | Bản 1.0: app Windows (Tauri) (Q45, ADR-0005). Web, macOS (1.1) và iOS / Android (1.2): cách cung cấp AI do tech chốt (ADR-0004) |
 | Figma | `[chưa có]` |
 
 ## 2. User Story
@@ -848,7 +848,7 @@ Bản EN: `[chờ bổ sung]`.
 
 | **Mục** | **Yêu cầu** `[giả định]` |
 | --- | --- |
-| Nền tảng | App Windows (Flutter) bản 1.0 (ADR-0005); cần Claude Code CLI trên cùng máy (QC-12); phiên bản Windows hỗ trợ: tech chốt |
+| Nền tảng | App Windows (Tauri) bản 1.0 (ADR-0005); cần Claude Code CLI trên cùng máy (QC-12); phiên bản Windows hỗ trợ: tech chốt |
 | Hiệu năng | Kết quả đầu tiên ≤ 10 giây (p95, gồm thời gian khởi động Claude Code), luôn có trạng thái đang xử lý; Planning Agent 2–4 phút, tối đa 5 phút; \[ProposalApply\] p95 ≤ 1 giây cho ≤ 30 thay đổi; mỗi lời gọi công cụ ghi MCP p95 ≤ 1 giây; chip / board cập nhật ≤ 100 ms sau khi áp dụng; phát hiện Claude Code ≤ 3 giây (p95), không chặn khởi động app |
 | Offline | AI không chạy khi mất mạng (MSG-06); công cụ ghi MCP trả `AI_OFFLINE` khi app mất kết nối server (BR-27); Daily planning / shutdown thủ công vẫn chạy (G08); hoàn tác AI cần mạng |
 | Đồng bộ | Thay đổi AI hiện trên thiết bị khác ≤ 5 giây (`task.upserted`, `ai.proposal.updated`); trạng thái Claude Code và \[McpServer\] là của từng máy |
