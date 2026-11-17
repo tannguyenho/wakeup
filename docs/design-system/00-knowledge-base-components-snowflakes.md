@@ -155,7 +155,7 @@ Khi một DS component bị phát hiện chỉ một sản phẩm dùng, hoặc 
 🖼️ COVER
 ```
 
-Nhóm nghiệp vụ dùng mã nhóm tính năng của dự án (`G01`…`G12` trong `docs/00-danh-muc-nhom-tinh-nang.md`) để dev đối chiếu với PRD / SRS. Thuật ngữ trên màn hình theo `CONTEXT.md`.
+Nhóm nghiệp vụ dùng mã nhóm tính năng của dự án (`G01`…`G12` trong `docs/00-danh-muc-nhom-tinh-nang.md`) để dev đối chiếu với PRD / SRS. Thuật ngữ trên màn hình theo `GLOSSARY.md`.
 
 ### 5.3 File trong `[Concept] Sandbox`
 

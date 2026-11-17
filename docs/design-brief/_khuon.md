@@ -11,7 +11,7 @@ Designer đọc brief là vẽ được ngay trong Figma, không phải mở PRD
 - **Mỗi trạng thái hiện gì, chữ gì?**
 - **Người dùng đi từ đâu tới đâu, bấm gì thì ra gì?**
 
-Brief **không** định nghĩa lại quy tắc nghiệp vụ. Quy tắc nằm ở PRD/SRS, QC, `CONTEXT.md` và ADR. Brief chỉ nói quy tắc đó **trông ra sao** trên màn hình, kèm mã tham chiếu để ai cần thì mở nguồn.
+Brief **không** định nghĩa lại quy tắc nghiệp vụ. Quy tắc nằm ở PRD/SRS, QC, `GLOSSARY.md` và ADR. Brief chỉ nói quy tắc đó **trông ra sao** trên màn hình, kèm mã tham chiếu để ai cần thì mở nguồn.
 
 ## Quy ước
 

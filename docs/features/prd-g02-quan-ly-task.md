@@ -4,7 +4,7 @@
 
 > **Bản nháp.** Con số đánh dấu `[giả định]` dùng để dựng flow, cần PO xác nhận trước khi dùng. Hành vi tham chiếu đã kiểm chứng trên Sunsama ngày 04/11/2026; chỗ khác Sunsama có chủ đích được ghi rõ.
 >
-> Đã cập nhật theo [quyết định chốt 04/11/2026](../review/quyet-dinh-chot-2026-11-04.md). Quy tắc dùng chung `QC-xx` ở [`01-quy-tac-dung-chung.md`](../01-quy-tac-dung-chung.md); G02 sở hữu **QC-03** (trạng thái task và khôi phục), **QC-08** (đồng bộ nhiều thiết bị, offline) và phần **khung giờ channel** của **QC-02** (mục 5–9). Thuật ngữ theo [`CONTEXT.md`](../../CONTEXT.md).
+> Đã cập nhật theo [quyết định chốt 04/11/2026](../review/quyet-dinh-chot-2026-11-04.md). Quy tắc dùng chung `QC-xx` ở [`01-quy-tac-dung-chung.md`](../01-quy-tac-dung-chung.md); G02 sở hữu **QC-03** (trạng thái task và khôi phục), **QC-08** (đồng bộ nhiều thiết bị, offline) và phần **khung giờ channel** của **QC-02** (mục 5–9). Thuật ngữ theo [`GLOSSARY.md`](../../GLOSSARY.md).
 >
 > Cập nhật thêm theo vòng 5–6 (Q33–Q46): bản 1.0 là app Windows cho một người dùng (Q35, Q45, [ADR-0005](../adr/0005-nen-tang-windows-truoc.md)); gợi ý task dùng trợ lý AI qua Claude Code CLI (QC-12, Q33, [ADR-0004](../adr/0004-ai-qua-claude-code-cli.md)); bỏ lưu trữ thủ công khỏi 1.0 (Q34); thêm khung giờ channel (Q38a). Tính năng để bản sau gom ở [`02-tinh-nang-ban-sau.md`](../02-tinh-nang-ban-sau.md).
 >
@@ -197,7 +197,7 @@ AC08: Subtask đã có bản ghi thời gian bị xoá → "Thực tế" của t
 
 ### US2.3 Đặt priority và hạn chót
 
-AC01: Priority chọn trong 4 mức hoặc phím 1–4 khi mở menu priority; task priority cao lên đầu danh sách ngày (khi bật tự sắp xếp). Tên bốn mức Urgent, Priority, Normal, Low giữ tiếng Anh trên giao diện tiếng Việt (thuật ngữ ở `CONTEXT.md`; chốt 10/11/2026, O-16).
+AC01: Priority chọn trong 4 mức hoặc phím 1–4 khi mở menu priority; task priority cao lên đầu danh sách ngày (khi bật tự sắp xếp). Tên bốn mức Urgent, Priority, Normal, Low giữ tiếng Anh trên giao diện tiếng Việt (thuật ngữ ở `GLOSSARY.md`; chốt 10/11/2026, O-16).
 
 AC02: Priority khác Normal hiện chip trên card.
 
@@ -369,4 +369,4 @@ AC10: Số ngày bị hoãn của task tính theo lịch **hiện tại** của 
 - Đã chốt 04/11/2026: phím toàn cục Ctrl+Shift+A (thêm task) có ở 1.0 trên app Windows (D11).
 - **Chốt 09/11/2026 (A1, C01):** câu lỗi lưu "Chưa lưu được thay đổi. Thử lại" (SRS MSG-10) là câu chung QC-MSG-01 (QC-13); khung giờ channel bị sửa trên thiết bị khác có câu riêng (SRS MSG-28), không dùng câu "Task vừa được cập nhật…".
 - **Chốt 10/11/2026 (O-14):** tìm channel không có kết quả thì không có lối "Tạo channel {từ khoá}" ở 1.0, chỉ có link "Quản lý channel" (US5.2 AC04).
-- **Chốt 10/11/2026 (O-16):** tên bốn mức priority Urgent, Priority, Normal, Low giữ tiếng Anh trên giao diện; "priority" ghi vào [`CONTEXT.md`](../../CONTEXT.md) (US2.3 AC01).
+- **Chốt 10/11/2026 (O-16):** tên bốn mức priority Urgent, Priority, Normal, Low giữ tiếng Anh trên giao diện; "priority" ghi vào [`GLOSSARY.md`](../../GLOSSARY.md) (US2.3 AC01).

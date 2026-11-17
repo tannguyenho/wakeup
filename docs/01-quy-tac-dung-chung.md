@@ -2,7 +2,7 @@
 
 Mã tài liệu: `PLN-COMMON`. Chốt ngày 04/11/2026 theo [quyết định chốt mâu thuẫn](review/quyet-dinh-chot-2026-11-04.md).
 
-Tài liệu này giữ các quy tắc mà nhiều nhóm cùng dùng. PRD/SRS của từng nhóm **tham chiếu** tới mã `QC-xx` ở đây, **không định nghĩa lại**. Nếu một nhóm cần ngoại lệ, nhóm đó ghi rõ là ngoại lệ của `QC-xx` nào. Thuật ngữ xem [`CONTEXT.md`](../CONTEXT.md).
+Tài liệu này giữ các quy tắc mà nhiều nhóm cùng dùng. PRD/SRS của từng nhóm **tham chiếu** tới mã `QC-xx` ở đây, **không định nghĩa lại**. Nếu một nhóm cần ngoại lệ, nhóm đó ghi rõ là ngoại lệ của `QC-xx` nào. Thuật ngữ xem [`GLOSSARY.md`](../GLOSSARY.md).
 
 | Mã | Quy tắc | Nhóm sở hữu | Nhóm dùng |
 |---|---|---|---|
