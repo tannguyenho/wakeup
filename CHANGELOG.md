@@ -9,7 +9,13 @@ Mỗi dòng gồm: phạm vi (nhóm G0x, `ds`, `server`…), thay đổi, rồi 
 ### 16/11/2026
 
 #### Thêm
+- `ds`: thêm `ARCHITECTURE.md` ghi link Figma đang dùng của Wakeup: team `1.0.0 [Design] Wakeup` (folder Snowflake / Concept / Handoff) và team `1.0.0 [Design System] Wake Up` (file `[Design System] Version 0.0.0`), không tạo mới gì trên Figma (PR: _chưa tạo_).
+- `tools`: cấu hình cho các skill engineering (`/setup-agent`): mục `## Agent skills` trong `CLAUDE.md` và `docs/agents/` ghi issue tracker là GitHub Issues, năm label triage chuẩn (đã tạo `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human` trên GitHub) và bố cục tài liệu domain single-context (PR: _chưa tạo_).
+- `tools`: chép toàn bộ 25 skill của [builder-skills](https://github.com/tannguyenho/builder-skills/tree/main/skills) (commit `7a56a4e`) vào `.claude/skills/` để dùng thẳng trong dự án, không phụ thuộc bản plugin đã cài (PR: _chưa tạo_).
 - `tools`: bật bộ skill [builder-skills](https://github.com/tannguyenho/builder-skills) (plugin Claude Code) cho cả dự án qua `.claude/settings.json`; ai mở repo trong Claude Code sẽ được mời cài marketplace `tannguyenho` và plugin `builder-skills`. Bỏ qua `.claude/worktrees/` và `.claude/settings.local.json` trong git ([#39](https://github.com/tannguyenho/wakeup/pull/39)).
+
+#### Đổi
+- `docs`: đổi tên bảng thuật ngữ `CONTEXT.md` thành `GLOSSARY.md` theo quy ước của bộ skill, sửa mọi link trong README, PRD/SRS, design brief và review (PR: _chưa tạo_).
 
 ### 12/11/2026
 
