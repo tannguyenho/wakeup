@@ -9,12 +9,12 @@ Mỗi dòng gồm: phạm vi (nhóm G0x, `ds`, `server`…), thay đổi, rồi 
 ### 17/11/2026
 
 #### Đổi
-- Tech stack: PO chốt bỏ Flutter và Dart, cả dự án dùng TypeScript ([ADR-0010](docs/adr/0010-tauri-react-va-backend-typescript.md)). App desktop viết lại bằng Tauri 2 + React + Vite + Tailwind v4, chạy local-first, UI component lấy từ Subframe (`apps/desktop`). Monorepo chuyển từ pub workspaces sang pnpm workspaces; CI build Tauri trên Windows và macOS (PR: chưa tạo).
-- `server`: viết lại backend bằng TypeScript trên Node 22 (Hono, `pg`), giữ nguyên endpoint, mã lỗi và migration; image Docker vẫn chạy trên Linux. `core`: `wakeup_core` thành `@wakeup/core`, giữ đủ ca chuẩn QC-01, client và server cùng import (PR: chưa tạo).
-- `docs`: `docs/tech/01` mục 2, 3, 5, 6, 8, 9, README, ADR-0005 / 0006 / 0008 và nhãn nền tảng trong PRD / SRS sửa theo stack mới (PR: chưa tạo).
+- Tech stack: PO chốt bỏ Flutter và Dart, cả dự án dùng TypeScript ([ADR-0010](docs/adr/0010-tauri-react-va-backend-typescript.md)). App desktop viết lại bằng Tauri 2 + React + Vite + Tailwind v4, chạy local-first, UI component lấy từ Subframe (`apps/desktop`). Monorepo chuyển từ pub workspaces sang pnpm workspaces; CI build Tauri trên Windows và macOS ([#41](https://github.com/tannguyenho/wakeup/pull/41)).
+- `server`: viết lại backend bằng TypeScript trên Node 22 (Hono, `pg`), giữ nguyên endpoint, mã lỗi và migration; image Docker vẫn chạy trên Linux. `core`: `wakeup_core` thành `@wakeup/core`, giữ đủ ca chuẩn QC-01, client và server cùng import ([#41](https://github.com/tannguyenho/wakeup/pull/41)).
+- `docs`: `docs/tech/01` mục 2, 3, 5, 6, 8, 9, README, ADR-0005 / 0006 / 0008 và nhãn nền tảng trong PRD / SRS sửa theo stack mới ([#41](https://github.com/tannguyenho/wakeup/pull/41)).
 
 #### Bỏ
-- `ds`, `tools`: gỡ lớp hợp đồng Figma ↔ Flutter của ADR-0008: `packages/ds_tokens`, plugin `tools/figma-codegen` (#31), `apps/widgetbook` và golden test. Subframe thay vai trò nguồn sự thật của design system (PR: chưa tạo).
+- `ds`, `tools`: gỡ lớp hợp đồng Figma ↔ Flutter của ADR-0008: `packages/ds_tokens`, plugin `tools/figma-codegen` (#31), `apps/widgetbook` và golden test. Subframe thay vai trò nguồn sự thật của design system ([#41](https://github.com/tannguyenho/wakeup/pull/41)).
 
 ### 16/11/2026
 
