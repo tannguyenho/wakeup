@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Wakeup: app lập kế hoạch ngày, bản 1.0 là Flutter Windows. Tài liệu và trao đổi bằng tiếng Việt. Thuật ngữ ở `CONTEXT.md`, tổng quan ở `README.md`.
+Wakeup: app lập kế hoạch ngày, bản 1.0 là Flutter Windows. Tài liệu và trao đổi bằng tiếng Việt. Thuật ngữ ở `GLOSSARY.md`, tổng quan ở `README.md`.
 
 ## Changelog
 
@@ -11,3 +11,17 @@ Mọi thay đổi đáng kể đều có một dòng trong `CHANGELOG.md`, ghi t
 3. Một PR có nhiều commit thì gộp thành một đến ba dòng theo ý chính, không chép từng commit.
 
 Xong khi: diff của PR có `CHANGELOG.md`, và mỗi dòng mới trỏ tới PR đó.
+
+## Agent skills
+
+### Issue tracker
+
+Issue nằm trên GitHub Issues của `tannguyenho/wakeup`, thao tác qua `gh`. Xem `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Dùng năm label chuẩn: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. Xem `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: một `GLOSSARY.md` và `docs/adr/` ở gốc repo. Xem `docs/agents/domain.md`.
