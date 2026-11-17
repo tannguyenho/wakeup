@@ -4,7 +4,7 @@
 
 > **Bản nháp.** Con số đánh dấu `[giả định]` dùng để dựng flow, cần PO xác nhận trước khi dùng. Hành vi tham chiếu đã kiểm chứng trên Sunsama ngày 04/11/2026: picker lặp (Repeats / On / Every N week / At roughly / Save), toast "Task now repeats", banner series ("This task repeats every weekday. This is the first instance of this series. Edit task series. Previous / Next"), instance Thứ Sáu hiện projection 9:00 và sao chép notes, đổi priority một instance không hỏi phạm vi. Chỗ khác Sunsama có chủ đích được ghi rõ.
 >
-> Đã cập nhật theo [quyết định chốt 04/11/2026](../review/quyet-dinh-chot-2026-11-04.md). Quy tắc `QC-xx` ở [`01-quy-tac-dung-chung.md`](../01-quy-tac-dung-chung.md); G03 sở hữu **QC-06** (instance trùng series trong một ngày). Thuật ngữ (series, instance, ngày gốc, ngày ngoại lệ) theo [`CONTEXT.md`](../../CONTEXT.md).
+> Đã cập nhật theo [quyết định chốt 04/11/2026](../review/quyet-dinh-chot-2026-11-04.md). Quy tắc `QC-xx` ở [`01-quy-tac-dung-chung.md`](../01-quy-tac-dung-chung.md); G03 sở hữu **QC-06** (instance trùng series trong một ngày). Thuật ngữ (series, instance, ngày gốc, ngày ngoại lệ) theo [`GLOSSARY.md`](../../GLOSSARY.md).
 >
 > Cập nhật thêm theo vòng 5–6: quy tắc `WEEKDAYS` hiển thị là "Thứ Hai–Thứ Sáu", quy tắc lặp không theo lịch làm việc (Q43); sửa giờ timebox của instance là sửa riêng (Q44); bản 1.0 là app Windows cho một người dùng (Q35, Q45, [ADR-0005](../adr/0005-nen-tang-windows-truoc.md)).
 >

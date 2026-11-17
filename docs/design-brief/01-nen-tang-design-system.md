@@ -183,7 +183,7 @@ Mọi chuyển động thay bằng mờ dần (fade) ≤ 120 ms; không có hi�
 | Không dấu chấm than, không đùa trong thông báo lỗi | "Chưa lưu được thay đổi. Thử lại" | "Úi! Có gì đó sai sai rồi!" |
 | Lỗi nói đủ hai ý: việc gì không làm được, và làm gì tiếp | "Không thể đặt task chưa xong vào ngày đã qua" + chọn ngày khác | "Thao tác không hợp lệ" |
 | Toast nói đúng việc **đã** xảy ra | "Đã chuyển 3 task vào Lưu trữ" | Một câu chung chung cho nhiều tình huống (bài học Sunsama, #21) |
-| Giữ thuật ngữ đã chốt trong [`CONTEXT.md`](../../CONTEXT.md), không dịch | task, backlog, channel, timebox, rollover | "công việc", "khối thời gian" |
+| Giữ thuật ngữ đã chốt trong [`GLOSSARY.md`](../../GLOSSARY.md), không dịch | task, backlog, channel, timebox, rollover | "công việc", "khối thời gian" |
 | Không pha tiếng Anh ngoài các thuật ngữ đó | "Hoàn tác" | "Undo" |
 | Ngày và giờ theo kiểu Việt | "Thứ Năm 06/11", "09:40", "1:30" | "Nov 6", "9:40 AM" |
 | Tên trợ lý không chứa "Claude"; "chạy bằng Claude Code" viết chữ thường, chỉ ở chỗ cần nói nguồn | – | – (chờ D16 và [#25](https://github.com/tannguyenho/personal-app/issues/25)) |

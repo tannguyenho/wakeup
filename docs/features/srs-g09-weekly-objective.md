@@ -4,7 +4,7 @@
 
 > **Bản nháp.** Giá trị `[giả định]` cần BA / PO xác nhận. SRS này chỉ mô tả Weekly review, Weekly planning, objective tuần, gắn task với objective, Analytics và recap tuần qua email (bản 1.1). Khung wizard, task ghi chép ritual, chia sẻ kết quả và job nhắc ritual dùng lại của G08; task (G02), task lặp (G03), board và khối lượng (G04), backlog (G06), thời gian thực tế (G07), tóm tắt AI (G10), Slack / Teams (G11), kênh thông báo, huỷ nhận và chế độ chỉ đọc (G12) đặc tả ở SRS riêng. API objective, analytics, recap chưa có trong tài liệu "Thiết kế kỹ thuật & đặc tả API — MVP 1.0" (thuộc 1.1); đường dẫn dưới đây là đề xuất `[giả định]`.
 >
-> Đã sửa theo [quyết định chốt 04/11/2026](../review/quyet-dinh-chot-2026-11-04.md). Quy tắc dùng chung (`QC-xx`) xem [`docs/01-quy-tac-dung-chung.md`](../01-quy-tac-dung-chung.md); thuật ngữ xem [`CONTEXT.md`](../../CONTEXT.md). Mọi "ngày" là ngày làm việc (QC-01); các ngày hiển thị trong tuần, ngày làm việc đầu / cuối tuần và giờ gửi recap lấy từ **lịch chung** (QC-02 mục 8), không theo khung giờ channel; thời gian thực tế theo QC-07. Điểm mở rộng G08 dành cho G09: G08 BR-25.
+> Đã sửa theo [quyết định chốt 04/11/2026](../review/quyet-dinh-chot-2026-11-04.md). Quy tắc dùng chung (`QC-xx`) xem [`docs/01-quy-tac-dung-chung.md`](../01-quy-tac-dung-chung.md); thuật ngữ xem [`GLOSSARY.md`](../../GLOSSARY.md). Mọi "ngày" là ngày làm việc (QC-01); các ngày hiển thị trong tuần, ngày làm việc đầu / cuối tuần và giờ gửi recap lấy từ **lịch chung** (QC-02 mục 8), không theo khung giờ channel; thời gian thực tế theo QC-07. Điểm mở rộng G08 dành cho G09: G08 BR-25.
 
 ## 1. Tổng quan
 

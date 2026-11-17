@@ -29,7 +29,7 @@ Bên ngoài vòng ngày là vòng tuần: Weekly planning (đặt objective vào
 ```
 .
 ├── README.md
-├── CONTEXT.md                          # bảng thuật ngữ chung
+├── GLOSSARY.md                         # bảng thuật ngữ chung
 ├── pubspec.yaml                        # pub workspace gốc
 ├── apps/
 │   ├── desktop/                        # app Flutter Windows (wakeup_desktop)
@@ -83,7 +83,7 @@ Bên ngoài vòng ngày là vòng tuần: Weekly planning (đặt objective vào
 - **Giao diện** theo design system riêng trên Figma; mục màn hình (SCR) trong SRS chỉ mô tả thành phần và hành vi, không mô tả hình ảnh. Cách phân tầng DS component / Snowflake và tổ chức folder Figma: [`docs/design-system/`](docs/design-system/00-knowledge-base-components-snowflakes.md).
 - **API, mã lỗi, job** trong SRS là hợp đồng nghiệp vụ tham khảo; cách hiện thực theo [`docs/tech/01`](docs/tech/01-quyet-dinh-tech-stack-va-api.md).
 - Mỗi tài liệu chỉ mô tả phần thuộc nhóm của nó. Phần thuộc nhóm khác được ghi chú `(Gxx)` để người đọc mở tài liệu nhóm đó.
-- Quy tắc nhiều nhóm cùng dùng nằm ở [`docs/01-quy-tac-dung-chung.md`](docs/01-quy-tac-dung-chung.md) và được tham chiếu bằng mã `QC-xx`. Thuật ngữ chuẩn nằm ở [`CONTEXT.md`](CONTEXT.md).
+- Quy tắc nhiều nhóm cùng dùng nằm ở [`docs/01-quy-tac-dung-chung.md`](docs/01-quy-tac-dung-chung.md) và được tham chiếu bằng mã `QC-xx`. Thuật ngữ chuẩn nằm ở [`GLOSSARY.md`](GLOSSARY.md).
 
 ## Quy ước
 

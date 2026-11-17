@@ -4,7 +4,7 @@
 
 > **Bản nháp.** Con số đánh dấu `[giả định]` dùng để dựng flow, cần PO xác nhận trước khi dùng. Hành vi tham chiếu đã kiểm chứng trên Sunsama ngày 04/11/2026: các màn Weekly review ("What got done" với biểu đồ Daily productivity và donut "How you spent your time"; "Finished this week" và "Review your key objectives"; Share / Wrap up; footer Automate, Refresh, Skip this step in the future), Weekly planning (Weekly objectives → Weekly plan "Planned for this week" + "Finished last week" → Share / Done), panel Weekly objectives (Shift+R), menu "Align with objective", trang Analytics. Phần analytics mở rộng và recap tuần qua email là đề xuất. Chỗ khác Sunsama có chủ đích được ghi rõ.
 >
-> Đã sửa theo [quyết định chốt 04/11/2026](../review/quyet-dinh-chot-2026-11-04.md). Quy tắc dùng chung (`QC-xx`) xem [`docs/01-quy-tac-dung-chung.md`](../01-quy-tac-dung-chung.md): ngày làm việc (QC-01), lịch làm việc (QC-02; G09 dùng **lịch chung**, mục 8), bản ghi thời gian (QC-07), chế độ chỉ đọc (QC-09), trợ lý AI (QC-12). Thuật ngữ xem [`CONTEXT.md`](../../CONTEXT.md).
+> Đã sửa theo [quyết định chốt 04/11/2026](../review/quyet-dinh-chot-2026-11-04.md). Quy tắc dùng chung (`QC-xx`) xem [`docs/01-quy-tac-dung-chung.md`](../01-quy-tac-dung-chung.md): ngày làm việc (QC-01), lịch làm việc (QC-02; G09 dùng **lịch chung**, mục 8), bản ghi thời gian (QC-07), chế độ chỉ đọc (QC-09), trợ lý AI (QC-12). Thuật ngữ xem [`GLOSSARY.md`](../../GLOSSARY.md).
 
 # 1. Bối cảnh và vấn đề
 

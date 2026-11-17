@@ -2,7 +2,7 @@
 
 Kết quả các vòng hỏi đáp với PO, dựa trên [báo cáo review](review-lo-hong-nghiep-vu-2026-11-04.md). File này là nguồn duy nhất khi sửa PRD/SRS. Mã X/G trong ngoặc trỏ về lỗ hổng tương ứng trong báo cáo.
 
-Thuật ngữ: [`CONTEXT.md`](../../CONTEXT.md). Quyết định khó đảo ngược: [`docs/adr/`](../adr/).
+Thuật ngữ: [`GLOSSARY.md`](../../GLOSSARY.md). Quyết định khó đảo ngược: [`docs/adr/`](../adr/).
 
 ## Cách làm
 
