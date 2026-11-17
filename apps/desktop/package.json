@@ -1,0 +1,39 @@
+{
+  "name": "@wakeup/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "App desktop của Wakeup: Tauri 2 + React + Tailwind, UI từ Subframe (docs/tech/01 mục 3).",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json",
+    "ui:sync": "subframe sync --all"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.5.0",
+    "@wakeup/core": "workspace:*",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.6.0"
+  },
+  "devDependencies": {
+    "@subframe/cli": "latest",
+    "@tailwindcss/vite": "^4.1.0",
+    "@tauri-apps/cli": "^2.5.0",
+    "@testing-library/jest-dom": "^6.6.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.6.0",
+    "jsdom": "^26.1.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.0.0",
+    "vitest": "^3.2.0"
+  }
+}

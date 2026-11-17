@@ -23,7 +23,7 @@ Trial 14 ngày, thanh toán gói cá nhân (không tính ghế, Q47), chế đ�
 
 | Bản | Nền tảng |
 |---|---|
-| 1.0 | Windows (Flutter) |
+| 1.0 | Windows (Tauri) |
 | 1.1 | Web, macOS |
 | 1.2 | iOS, Android |
 

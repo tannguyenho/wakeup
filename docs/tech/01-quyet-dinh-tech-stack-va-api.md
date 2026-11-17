@@ -2,6 +2,8 @@
 
 Trạng thái: **đã chốt** qua buổi grill tech ngày 05/11/2026 (Q1–Q41). Tài liệu này trả lời các câu hỏi ở [`00-cau-hoi-tech-stack-va-api.md`](00-cau-hoi-tech-stack-va-api.md). Quyết định khó đảo ngược ghi thêm ở [ADR-0006](../adr/0006-backend-dart-va-dong-bo-theo-lenh.md), [ADR-0007](../adr/0007-ha-tang-vps-singapore.md), [ADR-0008](../adr/0008-hop-dong-design-code-thay-code-connect.md), [ADR-0009](../adr/0009-rui-ro-dieu-khoan-claude-code-va-che-do-api-key.md).
 
+> **Cập nhật 17/11/2026 ([ADR-0010](../adr/0010-tauri-react-va-backend-typescript.md)):** client chuyển từ Flutter sang **Tauri + React + TypeScript + Tailwind**, UI component từ **Subframe**; backend chuyển từ Dart sang **TypeScript** (Node), vẫn chạy trên Linux. Mục 2, 3, 5, 6, 8, 9 đã sửa theo. Mô hình đồng bộ, hạ tầng, xác thực, tích hợp và AI giữ nguyên.
+
 Phần "API", "mã lỗi", "job" trong các SRS vẫn là hợp đồng nghiệp vụ. Tài liệu này quy định cách hiện thực các hợp đồng đó.
 
 ## 0. Bối cảnh
@@ -13,7 +15,7 @@ Phần "API", "mã lỗi", "job" trong các SRS vẫn là hợp đồng nghiệp
 | Hạ tầng | VPS Ubuntu 2 CPU / 2 GB RAM có sẵn, đặt ở **Singapore**; tăng cấu hình khi cần (Q2, Q11) |
 | Tên sản phẩm | **Wakeup** (Q39). Mã tài liệu giữ `PLN-PRD-Gxx` / `PLN-SRS-Gxx` |
 
-Nguyên tắc chọn: ít thành phần nhất có thể, một ngôn ngữ chính (Dart) để dùng chung logic giữa client và server, mọi thứ chạy vừa VPS 2 GB.
+Nguyên tắc chọn: ít thành phần nhất có thể, một ngôn ngữ chính (TypeScript) để dùng chung logic giữa client và server, mọi thứ chạy vừa VPS 2 GB.
 
 ## 1. Domain và môi trường
 
@@ -30,43 +32,46 @@ Nguyên tắc chọn: ít thành phần nhất có thể, một ngôn ngữ chí
 
 ## 2. Cấu trúc repo
 
-Monorepo ngay trong repo này, dùng pub workspaces (Q28):
+Monorepo ngay trong repo này, dùng pnpm workspaces (Q28, ADR-0010):
 
 ```
 apps/
-  desktop/        # app Flutter Windows (wakeup_desktop)
-    lib/ds/       # thư viện widget design system (ADR-0008)
-  server/         # backend shelf (wakeup_server), migration ở db/migrations
-  widgetbook/     # Widgetbook (web) + golden test cho lib/ds của desktop
+  desktop/        # app Tauri + React (@wakeup/desktop)
+    src/ui/       # theme và component do Subframe đồng bộ vào (mục 8)
+    src-tauri/    # vỏ native viết bằng Rust
+  server/         # backend Hono (@wakeup/server), migration ở db/migrations
   web-mini/       # trang web tối giản, HTML tĩnh do Caddy phục vụ
 packages/
-  core/           # wakeup_core: logic nghiệp vụ, DTO, lệnh, mã lỗi dùng chung
-  ds_tokens/      # wakeup_ds_tokens: tokens.json, script xuất Figma, code sinh ra
+  core/           # @wakeup/core: logic nghiệp vụ, lệnh, mã lỗi dùng chung
 deploy/           # Docker Compose, Caddyfile, sao lưu
 docs/             # PRD, SRS, ADR, tech
 ```
 
-## 3. Client — app Windows (Flutter)
+## 3. Client — app Windows (Tauri + React)
+
+App chạy **local-first**: giao diện chỉ đọc và ghi vào SQLite trên máy, nên dùng được khi mất mạng; thay đổi đi lên server qua hàng đợi lệnh (mục 6). Giao diện và logic nghiệp vụ viết bằng TypeScript; phía Rust chỉ làm việc cần quyền hệ điều hành.
 
 | Mục | Quyết định |
 |---|---|
-| Hệ điều hành | Windows 10 22H2 trở lên và Windows 11, chỉ **x64**; ARM64 làm sau (Q7) |
-| State | Riverpod (Q15) |
-| Điều hướng | go_router |
-| Lưu trữ trên máy | Drift (SQLite) + **SQLCipher**, khoá bảo vệ bằng Windows DPAPI. Hàng đợi offline nằm trong DB này, đã mã hoá và gắn `userId` (QC-08 mục 6) |
-| Kiến trúc thư mục | Theo nhóm tính năng G01..G10, mỗi nhóm có `data/`, `domain/`, `ui/`. Logic dùng chung với server nằm trong `wakeup_core` |
-| Khay hệ thống, cửa sổ | `tray_manager` + `window_manager`. Đóng cửa sổ khi timer đang chạy thì thu về khay, timer chạy tiếp (D13) |
-| Phím tắt toàn cục | `hotkey_manager`: Ctrl+Shift+A thêm task, Ctrl+Shift+Space timer (D11) |
-| Thông báo | `local_notifier`: thông báo Windows cho nhắc ritual và nhắc timer > 4 giờ (D12) |
-| Mở cùng Windows | `launch_at_startup`, tuỳ chọn trong Cài đặt |
-| Projection, sức chứa | Tính ngay trong app từ dữ liệu Drift, không có tiến trình nền riêng (Q34) |
-| Token trên máy | Windows Credential Manager |
+| Hệ điều hành | Windows 10 22H2 trở lên và Windows 11, chỉ **x64**; ARM64 làm sau (Q7). Cần WebView2 (có sẵn trên Windows 11; bộ cài tự tải trên Windows 10). macOS (1.1) build từ cùng mã nguồn |
+| Vỏ app | **Tauri 2** |
+| Giao diện | **React 19 + TypeScript + Vite + Tailwind CSS v4**; component từ **Subframe** (mục 8) |
+| State | React context và hook; thêm thư viện state khi thật sự cần |
+| Điều hướng | `react-router` (hash router) |
+| Lưu trữ trên máy | **SQLite + SQLCipher** ở phía Rust (`rusqlite`), khoá bảo vệ bằng Windows DPAPI (Keychain trên macOS). Hàng đợi offline nằm trong DB này, đã mã hoá và gắn `userId` (QC-08 mục 6). Phía React gọi qua một interface lưu trữ, để bản web 1.1 thay bằng lớp lưu trữ khác |
+| Kiến trúc thư mục | `src/features/` theo nhóm tính năng G01..G10; `src/app/` là khung app; `src/ui/` do Subframe quản lý. Logic dùng chung với server nằm trong `@wakeup/core` |
+| Khay hệ thống, cửa sổ | API tray và window của Tauri. Đóng cửa sổ khi timer đang chạy thì thu về khay, timer chạy tiếp (D13) |
+| Phím tắt toàn cục | Plugin `global-shortcut`: Ctrl+Shift+A thêm task, Ctrl+Shift+Space timer (D11) |
+| Thông báo | Plugin `notification`: thông báo hệ thống cho nhắc ritual và nhắc timer > 4 giờ (D12) |
+| Mở cùng Windows | Plugin `autostart`, tuỳ chọn trong Cài đặt |
+| Projection, sức chứa | Tính ngay trong app từ dữ liệu SQLite, không có tiến trình nền riêng (Q34) |
+| Token trên máy | Windows Credential Manager (crate `keyring`) |
 
 ### Đóng gói, ký số, cập nhật
 
-- Bộ cài **Inno Setup**, cài theo từng người dùng (không cần quyền admin). Chưa lên Microsoft Store (Q6).
+- Bộ cài **NSIS** do Tauri đóng gói, cài theo từng người dùng (không cần quyền admin). Chưa lên Microsoft Store (Q6).
 - Ký số bằng **Azure Trusted Signing** cho cả bộ cài và file exe.
-- Tự cập nhật: app gọi `GET /v1/app/latest`; bộ cài đã ký và feed appcast đặt trên R2, dùng package `auto_updater` (WinSparkle). Cập nhật là tuỳ chọn, trừ khi server trả `CLIENT_TOO_OLD` (Q33).
+- Tự cập nhật: plugin `updater` của Tauri; bộ cài đã ký và file mô tả bản cập nhật đặt trên R2, app hỏi `GET /v1/app/latest`. Cập nhật là tuỳ chọn, trừ khi server trả `CLIENT_TOO_OLD` (Q33).
 
 ## 4. AI — Claude Code CLI và MCP local
 
@@ -90,7 +95,7 @@ claude -p --output-format stream-json --input-format stream-json \
 
 ### MCP server local
 
-- App chạy MCP server qua **HTTP** trên `127.0.0.1`, cổng ngẫu nhiên, có **token riêng cho mỗi lượt cài** (Q8). Không nghe trên địa chỉ nào khác.
+- App chạy MCP server (phía Rust của Tauri) qua **HTTP** trên `127.0.0.1`, cổng ngẫu nhiên, có **token riêng cho mỗi lượt cài** (Q8). Không nghe trên địa chỉ nào khác.
 - Phiên do app mở: truyền URL + token qua `--mcp-config`.
 - Dùng từ terminal: app đăng ký server tên `wakeup` vào Claude Code ở phạm vi người dùng (kèm header token). Khi app tắt, Claude Code báo không kết nối được.
 - Tắt trợ lý AI thì MCP server ngừng nhận kết nối (QC-12 mục 7).
@@ -121,9 +126,9 @@ Khi bật trợ lý AI và ở màn xoá tài khoản, app hiện dòng: "Bản 
 
 | Mục | Quyết định |
 |---|---|
-| Ngôn ngữ | **Dart** (Q9, ADR-0006) |
-| Framework | `shelf` + `shelf_router` + `shelf_web_socket` (Q17) |
-| Truy cập DB | Package `postgres`, viết **SQL tay** |
+| Ngôn ngữ | **TypeScript** trên Node 22, chạy trên Linux (ADR-0010, thay Dart của Q9) |
+| Framework | **Hono** + `@hono/node-server`; WebSocket của Hono (Q17) |
+| Truy cập DB | Package `pg`, viết **SQL tay** |
 | Migration | File SQL đánh số, chạy bằng **dbmate** |
 | Database | PostgreSQL chạy cùng VPS, giới hạn khoảng 512 MB RAM; VPS thêm swap 2 GB (Q10) |
 | Sao lưu | `pg_dump` mỗi đêm, đẩy lên Cloudflare R2 hoặc Backblaze B2, giữ 30 ngày. Thử khôi phục ít nhất một lần trước Beta |
@@ -133,7 +138,7 @@ Khi bật trợ lý AI và ở màn xoá tài khoản, app hiện dòng: "Bản 
 
 - Mọi thời điểm lưu `timestamptz` theo UTC. Timezone người dùng lưu tên IANA (Q31).
 - Ngày dự định của task lưu kiểu `date`, không có giờ.
-- `workday()` (QC-01) nằm trong `wakeup_core`, dùng package `timezone` với **cùng một phiên bản dữ liệu tz** ở client và server.
+- `workday()` (QC-01) nằm trong `@wakeup/core`, tính bằng `Intl.DateTimeFormat` với dữ liệu tz của runtime (WebView ở client, Node ở server). Hai bên có thể lệch phiên bản dữ liệu tz; khi một nước đổi luật giờ thì cập nhật Node và WebView.
 
 ### Job nền
 
@@ -151,7 +156,7 @@ Xoá tài khoản thì hard-delete ngay trong DB. Dữ liệu còn trong bản s
 
 ### Mô hình đồng bộ: hàng đợi lệnh (Q4, ADR-0006)
 
-1. Client ghi lệnh nghiệp vụ vào hàng đợi trên máy, áp lạc quan lên Drift.
+1. Client ghi lệnh nghiệp vụ vào hàng đợi trên máy, áp lạc quan lên SQLite trên máy.
 2. Client gửi lô lệnh `POST /v1/commands`. Mỗi lệnh có `{commandId, type, payload, baseVersion, schemaVersion}`.
 3. Server kiểm tra từng lệnh theo QC-08: từ chối `VERSION_CONFLICT` khi cụm vị trí đã đổi, `TASK_DELETED`, `ALREADY_REPEATING`…; các trường khác gộp theo từng trường, bản server nhận sau thắng.
 4. Lệnh hợp lệ được áp và gán **số thứ tự toàn cục** của server. Thao tác của job hệ thống cũng tăng phiên bản (QC-08 mục 1).
@@ -164,8 +169,8 @@ Xoá tài khoản thì hard-delete ngay trong DB. Dữ liệu còn trong bản s
 | Mục | Quyết định |
 |---|---|
 | Kiểu | Đồng bộ qua `commands` / `changes`; phần còn lại (auth, cài đặt, kết nối lịch, xuất dữ liệu, `app/latest`) là REST thường, tiền tố `/v1` |
-| Hợp đồng | DTO và lệnh định nghĩa trong `wakeup_core` (freezed + json_serializable khi DTO nhiều lên; khung hiện viết tay `toJson` / `fromJson`). Bản 1.0 **không** làm OpenAPI vì client duy nhất là Dart |
-| Lỗi | `{error: {code, message, details}}`. `code` là enum trong `wakeup_core` (`VERSION_CONFLICT`, `TASK_DELETED`, `PAST_DATE`, `CLIENT_TOO_OLD`…). Client ánh xạ `code` sang MSG của SRS; `message` chỉ để debug (Q19) |
+| Hợp đồng | Kiểu dữ liệu và lệnh định nghĩa trong `@wakeup/core`, client và server cùng import (khung hiện kiểm tra hình dạng bằng tay; dùng thư viện schema khi DTO nhiều lên). Bản 1.0 **không** làm OpenAPI vì mọi client đều là TypeScript |
+| Lỗi | `{error: {code, message, details}}`. `code` là hằng trong `@wakeup/core` (`VERSION_CONFLICT`, `TASK_DELETED`, `PAST_DATE`, `CLIENT_TOO_OLD`…). Client ánh xạ `code` sang MSG của SRS; `message` chỉ để debug (Q19) |
 | Idempotency | `commandId` (UUIDv7) là khoá idempotency, server lưu 30 ngày. Gửi lại cùng lệnh nhận lại đúng kết quả cũ (Q20) |
 | Phân trang | Cursor, không dùng offset |
 | Rate limit | Chặn trong tiến trình cho đăng nhập, đặt lại mật khẩu, gửi email. Chưa cần Redis |
@@ -199,14 +204,27 @@ Webhook nhận qua `api.wakeup.tannguyenho.tech` sau Caddy.
 - **Google**: Beta để ứng dụng ở chế độ **Production nhưng chưa xác minh** (người dùng thấy màn cảnh báo, giới hạn 100 người). Không dùng chế độ Testing vì refresh token hết hạn sau 7 ngày. Chủ dự án tự nộp hồ sơ xác minh ngay sau khi dựng xong trang web tối giản và chính sách quyền riêng tư. Scope Calendar là "sensitive", không cần CASA. Gmail (1.1) là "restricted", cần CASA.
 - **Microsoft**: đăng ký ứng dụng đa tenant; xác minh nhà phát hành nếu muốn bỏ cảnh báo "unverified publisher".
 
-## 8. Design system — Figma ↔ Flutter
+## 8. Design system — Subframe
 
-Code Connect **không dùng được** trên gói Figma hiện tại (Education). Đã chạy thử ngày 05/11/2026: CLI template với `label: Flutter`, `language: dart` parse đúng, nhưng mọi lệnh Code Connect đều bị từ chối vì cần gói Organization / Enterprise. Thay bằng lớp hợp đồng design ↔ code (Q35, Q40, ADR-0008):
+Từ 17/11/2026 (ADR-0010), **Subframe là nguồn sự thật** của design system, thay lớp hợp đồng Figma ↔ Flutter của ADR-0008:
+
+1. **Theme và component** thiết kế trong Subframe. Subframe sinh thẳng code React + Tailwind.
+2. **Đồng bộ một chiều** vào `apps/desktop/src/ui/` bằng `subframe sync --all`: `theme.css` (token Tailwind v4, có light / dark) và `components/<Tên>/`. Không sửa tay trong thư mục này.
+3. **Logic nghiệp vụ** nằm ngoài `src/ui/`, bọc quanh component Subframe. Cần thêm hành vi vào chính component thì sửa file `index.tsx` của nó và đánh dấu `// @subframe/sync-disable`.
+4. **Không cần bộ sinh code và CI chặn lệch riêng**: design và code là cùng một nguồn. Lint và Prettier bỏ qua `src/ui/`.
+5. **Figma** còn dùng cho concept, user flow và handoff ([`ARCHITECTURE.md`](../../ARCHITECTURE.md)); không còn là nguồn của token và component.
+6. Font Inter (DS-05) khai báo trong theme Subframe.
+
+Cách kết nối và quy ước dùng: [`apps/desktop/README.md`](../../apps/desktop/README.md).
+
+### Lịch sử: lớp hợp đồng Figma ↔ Flutter (05–16/11/2026, đã gỡ)
+
+Code Connect **không dùng được** trên gói Figma hiện tại (Education). Đã chạy thử ngày 05/11/2026: CLI template với `label: Flutter`, `language: dart` parse đúng, nhưng mọi lệnh Code Connect đều bị từ chối vì cần gói Organization / Enterprise. Khi đó thay bằng lớp hợp đồng design ↔ code (Q35, Q40, ADR-0008). Các package nêu dưới đây (`packages/ds_tokens`, `tools/figma-codegen`, `apps/widgetbook`) đã bị gỡ khỏi repo, còn trong lịch sử git:
 
 1. **Token 1-1.** Script Plugin API xuất toàn bộ Variables (collection, mode, alias) ra `packages/ds_tokens/tokens.json`. Bộ sinh code map tên 1-1: bỏ tên collection, các đoạn còn lại nối camelCase, `color/bg/primary` → `DsColors.bgPrimary`. Mỗi mode (light / dark) là một `ThemeExtension`; alias giữ là tham chiếu, không làm phẳng.
-2. **Component 1-1.** Script Plugin API (`packages/ds_tokens/figma/export_components.js`) xuất component set (tên, property, variant, giá trị mặc định, slot) ra `components.json`. Bộ sinh code tạo enum (`DsButtonVariant { primary, secondary }`) và lớp `DsButtonBase extends StatelessWidget` chứa tên tham số, kiểu, giá trị mặc định; widget `DsButton` bắt buộc `extends` lớp này, nên đổi tên / xoá property trong Figma làm code biên dịch lỗi. Quy ước tên: DS component `Button` ↔ widget `DsButton`; Snowflake giữ tên Figma, không tiền tố (`TaskCard` ↔ `TaskCard`, chốt 08/11/2026), xuất từ file Snowflake ra `snowflakes.json`; property / variant trùng tên tham số, slot / instance swap ↔ `Widget?`; element `--...` và snowflake `Base / ...` không sinh widget; property `state` chỉ sinh enum. Chi tiết và ca chuẩn: [`packages/ds_tokens/README.md`](../../packages/ds_tokens/README.md), `test/naming_cases.json`.
+2. **Component 1-1.** Script Plugin API (`packages/ds_tokens/figma/export_components.js`) xuất component set (tên, property, variant, giá trị mặc định, slot) ra `components.json`. Bộ sinh code tạo enum (`DsButtonVariant { primary, secondary }`) và lớp `DsButtonBase extends StatelessWidget` chứa tên tham số, kiểu, giá trị mặc định; widget `DsButton` bắt buộc `extends` lớp này, nên đổi tên / xoá property trong Figma làm code biên dịch lỗi. Quy ước tên: DS component `Button` ↔ widget `DsButton`; Snowflake giữ tên Figma, không tiền tố (`TaskCard` ↔ `TaskCard`, chốt 08/11/2026), xuất từ file Snowflake ra `snowflakes.json`; property / variant trùng tên tham số, slot / instance swap ↔ `Widget?`; element `--...` và snowflake `Base / ...` không sinh widget; property `state` chỉ sinh enum. Chi tiết và ca chuẩn: `packages/ds_tokens/README.md`, `test/naming_cases.json`.
 3. **CI chặn lệch**: so `tokens.json` / `components.json` với code đã sinh; lệch thì báo đỏ. Lint cấm `Color(0x…)` và số khoảng cách cứng bên ngoài `ds_tokens`.
-4. **Plugin Codegen** riêng hiện snippet Dart trong Dev Mode Inspect. Đã xác minh ngày 08/11/2026: gói Education chạy được plugin Codegen dạng development trong Dev Mode, không cần nâng gói. Plugin ở [`tools/figma-codegen/`](../../tools/figma-codegen/README.md) (issue #31): đóng gói sẵn `components.json` / `snowflakes.json`, dùng chung ca tên `naming_cases.json` với bộ sinh Dart; CI kiểm `dist/code.js` khớp mã nguồn.
+4. **Plugin Codegen** riêng hiện snippet Dart trong Dev Mode Inspect. Đã xác minh ngày 08/11/2026: gói Education chạy được plugin Codegen dạng development trong Dev Mode, không cần nâng gói. Plugin ở `tools/figma-codegen/` (issue #31): đóng gói sẵn `components.json` / `snowflakes.json`, dùng chung ca tên `naming_cases.json` với bộ sinh Dart; CI kiểm `dist/code.js` khớp mã nguồn.
 5. **Description** của mỗi component ghi tên widget và đường dẫn file `.dart`, để AI đọc qua Figma MCP.
 6. **Widgetbook** cho thư viện widget, kèm golden test để so hình: `apps/widgetbook` (chạy web), golden chụp đúng use case trong Widgetbook, chỉ chạy trên Linux (CI ubuntu là nguồn chuẩn). Font Inter đóng gói trong `packages/ds_tokens/fonts/` (DS-05), golden nạp font thật.
 
@@ -218,11 +236,11 @@ File sandbox: [Wakeup – Code Connect pilot](https://www.figma.com/design/zWidv
 
 | Lớp | Nội dung |
 |---|---|
-| `wakeup_core` | Unit test; các ca chuẩn QC-01 là golden test |
-| Backend | Test tích hợp với Postgres trong service container |
-| Desktop | Widget test; bộ `integration_test` smoke trên `windows-latest` |
-| Design system | Kiểm tra hợp đồng token / component, golden test Widgetbook |
-| Phát hành | Đẩy tag thì build bộ cài Inno, ký số, đẩy lên R2, cập nhật appcast |
+| `@wakeup/core` | Unit test (Vitest); các ca chuẩn QC-01 là test chuẩn |
+| Backend | Test qua `app.request()` của Hono; test tích hợp với Postgres trong service container |
+| Desktop | Test component bằng Vitest + Testing Library; build Tauri trên `windows-latest` và `macos-latest` |
+| Design system | Không có lớp riêng: Subframe là nguồn sự thật (mục 8) |
+| Phát hành | Đẩy tag thì build bộ cài NSIS, ký số, đẩy lên R2 kèm file mô tả bản cập nhật |
 | AI | Bộ đánh giá là kịch bản prompt chạy tay trước mỗi bản phát hành (không chạy trong CI vì tốn phí) |
 
 ### Giám sát, log, tracking (Q27)
@@ -238,7 +256,9 @@ File sandbox: [Wakeup – Code Connect pilot](https://www.figma.com/design/zWidv
 |---|---|
 | AI trên web và di động (Q37) | Làm 1.1 |
 | Cách phát hiện Claude Code đăng nhập bằng gói hay API key, cho phương án dự phòng (ADR-0009) | Làm G10 |
-| Chạy thử lại Code Connect trên team Figma thật của Wakeup (`0.1 [App] Multiverse`, xem [`docs/design-system/`](../design-system/00-knowledge-base-components-snowflakes.md)); nếu team đó thuộc gói Organization thì xem lại ADR-0008 | Dựng thư viện widget |
+| Kết nối dự án Subframe (`subframe init`) và chuyển token, component đã vẽ trên Figma sang Subframe | Dựng màn hình đầu tiên |
+| Lớp lưu trữ cho bản web (IndexedDB / SQLite WASM hay chỉ online) | Làm 1.1 |
+| App di động 1.2: Tauri mobile hay app riêng dùng lại `@wakeup/core` | Làm 1.2 |
 | Hồ sơ Nghị định 13/2023: VPS Singapore, Sentry, Resend, R2 là bên xử lý ở nước ngoài | Phát hành 1.0 |
 | Phiên bản Claude Code tối thiểu | Làm G10 |
 | Danh sách công cụ MCP và schema chi tiết | Làm G10 (thiết kế trong code, theo SRS G10 mục 3.1) |

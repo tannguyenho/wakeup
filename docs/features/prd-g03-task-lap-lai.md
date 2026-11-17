@@ -49,7 +49,7 @@ Nhiều việc lặp theo nhịp cố định: standup mỗi sáng, dọn hộp 
 
 ## 3.1 Trong phạm vi (MVP)
 
-- Nền tảng: bản 1.0 là app **Windows** (Flutter), một người dùng, dữ liệu trên cloud gắn tài khoản (Q45, ADR-0005). Web và macOS từ 1.1, iOS / Android từ 1.2, dùng cùng đặc tả.
+- Nền tảng: bản 1.0 là app **Windows** (Tauri), một người dùng, dữ liệu trên cloud gắn tài khoản (Q45, ADR-0005). Web và macOS từ 1.1, iOS / Android từ 1.2, dùng cùng đặc tả.
 - Bật lặp cho task có sẵn từ menu … → Lặp lại (card và chi tiết task).
 - 6 kiểu quy tắc: Daily, Thứ Hai–Thứ Sáu (`WEEKDAYS`), Weekly (chọn thứ, mỗi N tuần), Monthly theo ngày, Monthly theo "thứ N", Yearly; khoảng lặp 1–99; giờ "khoảng" (At roughly). Quy tắc lặp tính theo lịch dương, **không** theo lịch làm việc (G01) hay khung giờ channel (G02) (Q43).
 - Sinh instance tự động tới 60 ngày phía trước, không sinh ngày đã qua; instance hiện dạng projection trên board.
@@ -322,7 +322,7 @@ AC04: Tải danh sách lỗi → "Chưa tải được. Thử lại" tại chỗ
 - Khi series chưa có instance hôm nay và có nhiều instance quá khứ chưa xong: giữ instance mới nhất hay cũ nhất (thứ tự rollover theo C16 là ngày cũ tăng dần)?
 - "Sửa riêng" một instance gồm những thao tác nào (đề xuất: sửa trường được sao chép từ mẫu, trừ tích subtask)? Đã chốt 04/11/2026 một phần: sửa giờ timebox của instance là sửa riêng (Q44). Còn mở: đặt mới / gỡ timebox có tính là sửa riêng không (bản này giả định có).
 - Đã chốt 04/11/2026: nhãn quy tắc `WEEKDAYS` là "Thứ Hai–Thứ Sáu", không phải "Ngày làm việc"; quy tắc lặp không theo lịch làm việc (Q43).
-- Đã chốt 04/11/2026: bản 1.0 là app Windows (Flutter), một người dùng; task lặp giao cho người khác để bản sau (Q35, Q45).
+- Đã chốt 04/11/2026: bản 1.0 là app Windows (Tauri), một người dùng; task lặp giao cho người khác để bản sau (Q35, Q45).
 - Có cần quy tắc lặp "theo lịch làm việc" (sinh vào các ngày có trong lịch làm việc chung hoặc khung giờ channel) ở bản sau không? Q43 chỉ chốt 1.0 không có.
 - "Dừng lặp" có xoá instance tương lai đã dời hoặc sửa riêng không, hay giữ như khi đổi tần suất (Q26)? **Chốt 09/11/2026 (B14):** giữ, như khi đổi tần suất; instance vẫn gắn series đã dừng.
 - **Chốt 09/11/2026 (B15):** đổi tần suất và dừng lặp làm ngay trên dòng của "Quản lý mọi task lặp", không cần mở instance (US6.1 AC02).

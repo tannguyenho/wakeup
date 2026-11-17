@@ -22,7 +22,7 @@
 | Actor | Người dùng đã đăng nhập · Hệ thống · Trợ lý AI (Claude Code CLI trên máy người dùng, điều khiển app qua MCP local, QC-12; tác nhân `ai`) · Dịch vụ đọc tiêu đề URL |
 | Phạm vi | Tạo task (ô soạn, phím A, dán URL), gợi ý thời lượng / channel qua trợ lý AI, chi tiết task, subtask (một cấp, xoá có Hoàn tác), priority, due, notes, comment, nhật ký, hoàn thành, nhân bản, xoá mềm, Thùng rác 30 ngày, context & channel (channel hệ thống "Chưa phân loại"), khung giờ channel (QC-02 mục 5–9), bộ trạng thái task (QC-03), đồng bộ nhiều thiết bị và offline (QC-08) |
 | Ngoài phạm vi | Lặp lại, kéo thả và sắp xếp board, projection và sức chứa (G04, đọc khung giờ channel), timebox và auto-schedule (G05), backlog và rollover (G06), timer, đính kèm file (1.1), lưu trữ thủ công `manual` (bản sau, Q34), giao task / follow và quyền tạo channel chung / riêng tư (bản sau, 1.2 trở đi, Q35, Q47), trial / thanh toán gói cá nhân một người dùng / chế độ chỉ đọc (1.1, QC-09, Q47), gộp task |
-| Nền tảng | App **Windows** (Flutter) ở 1.0, một người dùng, dữ liệu trên cloud gắn tài khoản (Q45, ADR-0005). Web, macOS từ 1.1; iOS / Android từ 1.2, dùng cùng đặc tả |
+| Nền tảng | App **Windows** (Tauri) ở 1.0, một người dùng, dữ liệu trên cloud gắn tài khoản (Q45, ADR-0005). Web, macOS từ 1.1; iOS / Android từ 1.2, dùng cùng đặc tả |
 | Figma | `[chưa có]` |
 
 ## 2. User Story
@@ -581,7 +581,7 @@ Bản EN: `[chờ bổ sung]`.
 
 | **Mục** | **Yêu cầu** `[giả định]` |
 | --- | --- |
-| Nền tảng | App Windows (Flutter) ở 1.0 (Q45, ADR-0005); giao diện theo design system Figma riêng; dữ liệu lưu trên cloud gắn tài khoản, có bản trên máy để chạy offline. Kiến trúc cụ thể do tech chốt (`docs/tech/`) |
+| Nền tảng | App Windows (Tauri) ở 1.0 (Q45, ADR-0005); giao diện theo design system Figma riêng; dữ liệu lưu trên cloud gắn tài khoản, có bản trên máy để chạy offline. Kiến trúc cụ thể do tech chốt (`docs/tech/`) |
 | Hiệu năng | Task hiện trên cột ≤ 100 ms sau Enter (cập nhật lạc quan); \[TaskCreate\] p95 ≤ 300 ms; SCR-03 mở ≤ 500 ms; ô soạn không bao giờ chờ \[TaskSuggest\] (Claude Code chạy trên máy, có thể chậm); lưu khung giờ channel → G04 tính lại projection / sức chứa ≤ 1 giây |
 | Offline | Tạo, sửa, hoàn thành, xoá, nhân bản, sửa khung giờ channel chạy được khi mất mạng; khôi phục từ Thùng rác cần mạng (UC-04 E5, UC-05 E2; chốt 10/11/2026, O-15); đồng bộ lại không tạo trùng (idempotency key); xử lý xung đột, hàng đợi khi bị đăng xuất từ xa theo QC-08 |
 | Đồng bộ | Thay đổi hiện trên thiết bị khác ≤ 5 giây qua realtime. Thứ tự theo thời điểm server nhận; job hệ thống cũng tăng phiên bản (QC-08 mục 1) |

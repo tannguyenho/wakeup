@@ -12,7 +12,7 @@
 | Actor | Người dùng đã đăng nhập · Hệ thống (job `timer.watchdog`, dịch vụ đồng bộ) · Hệ điều hành Windows (thông báo Windows, khay hệ thống, phím tắt toàn cục — 1.0, D11–D13; Focus Bar 1.2) |
 | Phạm vi | Timer trên task cha, một timer toàn tài khoản, bản ghi thời gian (QC-07; nguồn `timer` / `manual` / `auto_closed` / `ritual`), nhập tay (E) theo thời lượng hoặc khoảng giờ, Focus mode, âm báo theo kế hoạch, nhắc > 4 giờ, tự đóng > 24 giờ, đồng bộ nhiều thiết bị; Pomodoro, nghỉ (1.1); Focus Bar (1.2) |
 | Ngoài phạm vi | Khối thực tế trên lịch (G05), "Tính planned là actual" (G02; chỉ hiển thị, QC-07 mục 4), thời điểm ritual tạo bản ghi (G08), DND Slack / Teams (G11), cộng số liệu theo ngày / tuần và báo cáo thời gian (chỉ G09, QC-07 mục 5), Toggl, chặn website |
-| Nền tảng | App Windows (Flutter) ở 1.0 (Q45, ADR-0005). Web, macOS từ 1.1; iOS / Android từ 1.2 dùng cùng đặc tả; Focus Bar chỉ app desktop (Windows, macOS; 1.2). Chạy nền, khay hệ thống, thông báo Windows, phím tắt toàn cục: tech chốt — `docs/tech/` |
+| Nền tảng | App Windows (Tauri) ở 1.0 (Q45, ADR-0005). Web, macOS từ 1.1; iOS / Android từ 1.2 dùng cùng đặc tả; Focus Bar chỉ app desktop (Windows, macOS; 1.2). Chạy nền, khay hệ thống, thông báo Windows, phím tắt toàn cục: tech chốt — `docs/tech/` |
 | Figma | `[chưa có]` |
 
 ## 2. User Story

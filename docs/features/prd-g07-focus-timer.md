@@ -40,7 +40,7 @@ Lên kế hoạch chỉ có ích khi biết thực tế đã dùng thời gian t
 
 ## 3.1 Trong phạm vi (1.0; Pomodoro và nghỉ 1.1; Focus Bar 1.2)
 
-- Nền tảng: app Windows (Flutter) ở 1.0 (Q45, ADR-0005). Web và macOS từ 1.1, iOS / Android từ 1.2 dùng cùng đặc tả. Focus Bar chỉ có trên app desktop (Windows, macOS; 1.2).
+- Nền tảng: app Windows (Tauri) ở 1.0 (Q45, ADR-0005). Web và macOS từ 1.1, iOS / Android từ 1.2 dùng cùng đặc tả. Focus Bar chỉ có trên app desktop (Windows, macOS; 1.2).
 - **1.0** Timer lưu trên server theo giờ bắt đầu: thu nhỏ, đóng cửa sổ app, tắt app hoặc máy ngủ không dừng timer; mở lại app thì đồng hồ hiện đúng thời gian đã chạy. Đóng cửa sổ khi đang có timer thì app thu về khay hệ thống, timer chạy tiếp (D13); cơ chế chạy nền / khay hệ thống: tech chốt — `docs/tech/`.
 - **1.0** Timer trên task: ▶ trên card / chi tiết, phím Space; timer luôn chạy trên **task cha**, không chạy trên subtask (QC-07 mục 6, C20); một timer toàn tài khoản; dừng tạo bản ghi thời gian, cộng vào thời gian thực tế, hiện khối thực tế trên lịch (G05).
 - **1.0** Nhập / sửa / xoá thời gian thực tế bằng tay (phím E), theo thời lượng hoặc theo khoảng giờ (QC-07 mục 3).

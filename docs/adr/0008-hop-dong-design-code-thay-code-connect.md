@@ -1,5 +1,5 @@
 ---
-status: accepted, 05/11/2026
+status: superseded by ADR-0010, 17/11/2026 (Subframe là nguồn sự thật của design system)
 ---
 
 # Mapping 1-1 Figma ↔ Flutter bằng lớp hợp đồng sinh code, không dùng Code Connect

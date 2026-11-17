@@ -1,0 +1,21 @@
+{
+  "name": "@wakeup/core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Logic nghiệp vụ, lệnh đồng bộ và mã lỗi dùng chung giữa app, web và server Wakeup.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}

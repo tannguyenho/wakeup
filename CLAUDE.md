@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Wakeup: app lập kế hoạch ngày, bản 1.0 là Flutter Windows. Tài liệu và trao đổi bằng tiếng Việt. Thuật ngữ ở `GLOSSARY.md`, tổng quan ở `README.md`.
+Wakeup: app lập kế hoạch ngày, bản 1.0 là app Windows viết bằng Tauri + React + TypeScript, backend TypeScript trên Linux (ADR-0010). Tài liệu và trao đổi bằng tiếng Việt. Thuật ngữ ở `GLOSSARY.md`, tổng quan ở `README.md`.
 
 ## Changelog
 

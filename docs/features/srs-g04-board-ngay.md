@@ -16,7 +16,7 @@
 | Actor | Người dùng đã đăng nhập · Hệ thống (tính projection / khối lượng) · Dịch vụ lịch (G05, cung cấp sự kiện bận) · Dịch vụ tìm kiếm |
 | Phạm vi | Home board, Today view, 6 chế độ xem, điều hướng ngày, kéo thả, phím di chuyển, sắp xếp lại, projection, cảnh báo khối lượng, bộ lọc channel, tìm kiếm, command menu, bảng phím tắt, khung panel phải |
 | Ngoài phạm vi | Tạo / sửa task, timebox và đồng bộ lịch, nội dung panel Backlog / Lưu trữ / Objectives / tích hợp, timer, ritual, chọn nhiều task (sau 1.1), banner đổi timezone (G01 MSG-23), màn Lịch làm việc (G01), cài đặt khung giờ channel (G02, QC-02 mục 5), "Latest updates" (bỏ khỏi phạm vi, C36) |
-| Nền tảng | App Windows (Flutter) ở 1.0 (Q45, ADR-0005). Web, macOS từ 1.1; iOS / Android từ 1.2 dùng cùng đặc tả. Lưu dữ liệu trên máy, tính nền, kiến trúc: tech chốt — `docs/tech/` |
+| Nền tảng | App Windows (Tauri) ở 1.0 (Q45, ADR-0005). Web, macOS từ 1.1; iOS / Android từ 1.2 dùng cùng đặc tả. Lưu dữ liệu trên máy, tính nền, kiến trúc: tech chốt — `docs/tech/` |
 | Figma | `[chưa có]` |
 
 ## 2. User Story

@@ -1,5 +1,5 @@
 ---
-status: accepted, 05/11/2026
+status: accepted 05/11/2026; phần "backend viết bằng Dart" bị thay bởi ADR-0010 ngày 17/11/2026 (backend TypeScript). Mô hình hàng đợi lệnh còn hiệu lực
 ---
 
 # Backend viết bằng Dart, đồng bộ offline theo hàng đợi lệnh

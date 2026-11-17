@@ -16,7 +16,7 @@
 | Actor | Người dùng đã đăng nhập · Hệ thống (job `rollover`, API đảm bảo rollover) · G08 (gọi API đảm bảo rollover) |
 | Phạm vi | Trang / panel Backlog (6 bucket, folder, nhóm theo channel), chuyển task vào backlog (Z, Shift+Z, menu, kéo), lấy task ra ngày, rollover, đảm bảo rollover khi mở app, Tự lưu trữ, panel Lưu trữ, khôi phục, "Xoá tất cả"; sở hữu QC-04, QC-05 |
 | Ngoài phạm vi | Phím D, hoãn 1 tuần và kéo thả trên board (G04), Thùng rác (G02), sinh instance lặp và quy tắc QC-06 (G03), đồng bộ sự kiện trên lịch ngoài (G05), nhắc bucket trong ritual (G08, G09), backlog nhóm và task được giao (bản sau, 1.2 trở đi, Q35, Q36, Q47 — BR-23), lưu trữ thủ công `manual` (bản sau, Q34), mức ưu tiên riêng của Backlog (không có ở 1.0; task giữ priority của chính nó theo G02, chốt 09/11/2026, B13), chỉnh ngưỡng Tự lưu trữ trên giao diện (không có ở 1.0, B10), chế độ chỉ đọc (G12, 1.1) |
-| Nền tảng | App Windows (Flutter) ở 1.0 (Q45, ADR-0005). Web, macOS từ 1.1; iOS / Android từ 1.2 dùng cùng đặc tả. Job rollover chạy phía server; lưu trên máy, hạ tầng job: tech chốt — `docs/tech/` |
+| Nền tảng | App Windows (Tauri) ở 1.0 (Q45, ADR-0005). Web, macOS từ 1.1; iOS / Android từ 1.2 dùng cùng đặc tả. Job rollover chạy phía server; lưu trên máy, hạ tầng job: tech chốt — `docs/tech/` |
 | Figma | `[chưa có]` |
 
 ## 2. User Story

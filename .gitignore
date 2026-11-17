@@ -1,8 +1,5 @@
-# Dart / Flutter
-.dart_tool/
+# Build
 build/
-.packages
-pubspec_overrides.yaml
 coverage/
 
 # IDE
@@ -21,3 +18,12 @@ Thumbs.db
 # Claude Code (settings.json được commit)
 .claude/settings.local.json
 .claude/worktrees/
+
+# Node / TypeScript
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Tauri / Rust
+target/
+apps/desktop/src-tauri/gen/
